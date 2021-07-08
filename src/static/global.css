@@ -1,0 +1,275 @@
+:root {
+  --color-white: #fff;
+  --color-dark-blue: #1B1D23;
+  --color-dark-gray: #60636D;
+  --color-mid-gray: #7D828F;
+  --color-light-gray: #C8CCD8;
+  --color-very-light-gray: #EEEFF4;
+  --color-red: #DF5656;
+
+  /* Font weights */
+  --weight-bold: 700;
+  --weight-mid: 500;
+
+  /* Design elements */
+  --transition: 300ms ease-in-out;
+}
+
+/* Reset */
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-size: 1.6rem;
+  font-family: 'Spartan', sans-serif;
+  background-color: var(--color-white);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.sr-only {
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(0px 0px 99.9% 99.9%);
+  overflow: hidden;
+  border: 0;
+}
+
+.button {
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0;
+}
+
+@media screen and (min-width: 768px) {
+  #sapper {
+    position: relative;
+    max-width: 144rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Type specs */
+.t-h1 {
+  font-size: 4.8rem;
+  line-height: 4.8rem;
+  letter-spacing: -.12rem;
+  font-weight: var(--weight-bold);
+}
+@media screen and (min-width: 768px) {
+  .t-h1 {
+    font-size: 8rem;
+    line-height: 8rem;
+    letter-spacing: -.2rem;
+  }
+}
+
+.t-h1-l {
+  font-size: 12rem;
+  line-height: 20rem;
+  letter-spacing: -.3rem;
+  font-weight: var(--weight-bold);
+}
+@media screen and (min-width: 1024px) {
+  .t-h1-l {
+    font-size: 20rem;
+    letter-spacing: -.5rem;
+  }
+}
+
+.t-h2 {
+  font-size: 4rem;
+  line-height: 4.8rem;
+  letter-spacing: -.143rem;
+  font-weight: var(--weight-bold);
+}
+@media screen and (min-width: 768px) {
+  .t-h2 {
+    font-size: 5.6rem;
+    line-height: 5.6rem;
+    letter-spacing: -.2rem;
+  }
+}
+
+.t-h3 {
+  font-size: 1.8rem;
+  letter-spacing: 0;
+  line-height: 2.5rem;
+  font-weight: var(--weight-bold);
+}
+
+.t-body {
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+  font-weight: var(--weight-mid);
+}
+
+.t-body--bold {
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+  font-weight: var(--weight-bold);
+}
+
+.t-project-name,
+.t-leader-name {
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  font-weight: var(--weight-bold);
+}
+
+.t-office-name {
+  font-size: 1.5rem;
+  line-height: 3.5rem;
+  font-weight: var(--weight-bold);
+}
+
+.t-office-detail {
+  font-size: 1.5rem;
+  line-height: 3.5rem;
+  font-weight: var(--weight-mid);
+}
+
+.t-white {
+  color: var(--color-white);
+}
+.t-dark-blue {
+  color: var(--color-dark-blue);
+}
+.t-dark-gray {
+  color: var(--color-dark-gray);
+}
+.t-mid-gray {
+  color: var(--color-mid-gray);
+}
+.t-very-light-gray {
+  color: var(--color-very-light-gray);
+}
+
+.t-op75 {
+  opacity: .75;
+}
+
+.button.button--hero {
+  width: 25.2rem;
+}
+
+.button.button--smallteam {
+  width: 18.7rem;
+}
+
+.button.button--hero,
+.button.button--smallteam {
+  height: 7.2rem;
+  align-items: center;
+  display: inline-flex;
+  justify-content: space-between;
+  padding: 2.4rem 3.2rem 2.3rem 3rem;
+  background-color: var(--color-dark-blue);
+  transition: var(--transition) background-color;
+}
+
+.button--hero__arrow,
+.button--smallteam__arrow,
+.button--all__arrow {
+  width: 2.4rem;
+  height: 1.8rem;
+  background-size: cover;
+  background-position: center;
+  background-image: url(/icons/icon-arrow-white.svg);
+}
+
+.button.button--all {
+  width: 100%;
+  height: 7.2rem;
+  padding-top: 2.4rem;
+  display: inline-flex;
+  padding-bottom: 2.3rem;
+  justify-content: center;
+  background-color: var(--color-dark-blue);
+  transition: var(--transition) background-color;
+}
+@media screen and (min-width: 560px) {
+  .button.button--all {
+    width: 16.9rem;
+  }
+}
+
+.button > .button--all__text {
+  margin-right: 2.4rem;
+}
+
+
+.button.button--hero:hover,
+.button.button--smallteam:hover,
+.button.button--all:hover {
+  background-color: var(--color-dark-gray);
+}
+
+/* Page sticker */
+#nav-sticker {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  #nav-sticker {
+    top: 0;
+    left: 0;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    flex-flow: row nowrap;
+    transform-origin: left bottom;
+    transform: translateY(-100%) translateX(3.9rem) rotate(90deg);
+  }
+}
+@media screen and (min-width: 1280px) {
+  #nav-sticker {
+    transform: translateY(-100%) translateX(6.4rem) rotate(90deg);
+  }
+}
+
+.nav-sticker__line {
+  width: 10.4rem;
+  height: .1rem;
+  background-color: var(--color-light-gray);
+  margin-right: 4.8rem;
+}
+
+.t-nav-sticker {
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+  letter-spacing: 1.5rem;
+  font-weight: var(--weight-mid);
+  color: var(--color-light-gray);
+  text-transform: uppercase;
+}

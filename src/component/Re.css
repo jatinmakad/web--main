@@ -1,0 +1,103 @@
+.cont{
+    display: flex;
+    width: 1000px;
+    height: 300px;
+    justify-content: space-between;
+    margin: 0 auto;
+    align-items: center;
+}
+.cont .MuiSvgIcon-root{
+    margin-top: -4px;
+    font-size: 13px;
+    color: #D97C4A;
+}
+
+.ma{
+    height: 400px;
+    align-items: center;
+    display: flex;
+}
+.f1 img{
+    width: 50%;
+}
+.f2 img{
+    width: 50%;
+    margin-bottom: -20px;
+}
+.f3 img{
+    width: 50%;
+    margin-bottom: -20px;
+}
+.f1{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.f1 h4{
+    color: black;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+.f1main{
+    display: flex;
+    justify-content: flex-end;
+    height: 170px;
+    width: 300px;
+    background-color: #F2F2F2;
+    border-radius: 10px;
+}
+.f2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.f2 h4{
+    color: black;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+.f2main{
+    display: flex;
+    justify-content: flex-end;
+    height: 170px;
+    width: 300px;
+    background-color: #F2F2F2;
+    border-radius: 10px;
+}
+.f3{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;  
+}
+.f3 h4{
+    font-size: 20px;
+    color: black;
+    text-transform: uppercase;
+}
+.f3main{
+    display: flex;
+    justify-content: flex-end;
+    height: 170px;
+    width: 300px;
+    background-color: #F2F2F2;
+    border-radius: 10px;
+}
+.bt{
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+.bt button{
+    color: gray;
+    border: none;
+    margin-bottom: 10px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.bt button:hover{
+    color: #D97C4A;
+}
