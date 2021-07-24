@@ -1,43 +1,28 @@
-import React from "react";
-import './App.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
-import Earphone from "./pages/Earphone";
-import Headphone from "./pages/Headphone";
-import Speaker from "./pages/Speaker";
-import Home from "./pages/Home";
-import Earr from "../src/Model/Earr";
+import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Cart from "./Pages/Cart";
+import ProductDis from "./Pages/ProductDIs";
+import Home from "./Pages/Home";
+import Products from "./Pages/Products";
+import ProductsList from "./Pages/PrdouctsList";
+import Header from "./Pages/Header";
 
-
-function App() {
-  return (
-    <div className="App">
-      <Router>
-      <Switch>
-      <Route path="/earphone/earphones">
-                    <Earr/>
-                 </Route>
-          <Route path="/headphone">
-           <Headphone/>
-          </Route>
-          <Route path="/earphone">
-            <Earphone/>
-          </Route>
-          <Route path="/speaker">
-            <Speaker />
-          </Route>
-          
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
-       
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Router>
+          <Header />
+          <Switch>
+            <Route path="/cart" component={Cart} />
+            <Route path= "/products/" component={ProductDis} />
+            <Route path="/" component={ProductsList} />
+            {/* <Route component={Home} /> */}
+          </Switch>
+        </Router>
+      </div>
+    );
+  }
 }
 
 export default App;
