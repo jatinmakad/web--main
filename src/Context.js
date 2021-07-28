@@ -37,35 +37,28 @@ class ProductProvdier extends Component {
     super();
     this.state = {
       products: [],
+      currencies: [],
       cartItems: [],
       cart: [],
       curr: "USD",
-      modal: false,
-      total: 0,
-      cat:"",
       cateogryP: "clothes",
-      
+      modal: false,
+      filterCurr: false,
+      tot: 0,
+      cat: "",
+      attribut: [],
     };
   }
-  openModel = (status) => {
-    console.log("open");
-    this.setState({ modal: status });
-  };
-  closeModel = () => {
-    console.log("close");
-    this.setState({
-      modal: false,
-    });
-  };
-  con = () => {
+  dataFetching = () => {
     request("http://localhost:4000/", DATA_USER).then((data) =>
       this.setState({
         products: data.category.products,
+        currencies: data.currencies,
       })
     );
   };
   componentDidMount() {
-    this.con();
+    this.dataFetching();
   }
   details = (id) => {
     const cartItem = this.getItem(id);
@@ -73,6 +66,7 @@ class ProductProvdier extends Component {
       return { cartItems: cartItem };
     });
   };
+
   getItem = (id) => {
     const products = this.state.products.find((item) => item.id === id);
     return products;
@@ -90,7 +84,7 @@ class ProductProvdier extends Component {
       cart.push({ ...products, count: 1 });
     }
     this.setState({ cart });
-    this.addTotal(cart)
+    this.addTotal(cart);
   };
   remove = (products) => {
     const cart = this.state.cart.slice();
@@ -104,6 +98,7 @@ class ProductProvdier extends Component {
         x.id === products.id ? { x, count: x.count-- } : x
       ),
     });
+    this.addTotal(cart);
   };
   increment = (products) => {
     const cart = this.state.cart.slice();
@@ -112,30 +107,112 @@ class ProductProvdier extends Component {
         x.id === products.id ? { x, count: x.count++ } : x
       ),
     });
+    this.addTotal(cart);
   };
-
-  filterCurrency = (event) => {
-    console.log(event.target.value);
+  filter = (c) => {
     this.setState({
-      curr: event.target.value,
+      curr: c,
+    });
+  };
+  CatFilter = (event) => {
+    this.setState({
+      cateogryP: event.target.value,
     });
   };
   addTotal = (cart) => {
     let total = 0;
     cart.forEach((item) => {
       item.prices.forEach((j) => {
-           if(j.currency === `${this.state.curr}`){
-             total = total+(j.amount * item.count)
-           }
+        if (j.currency === `${this.state.curr}`) {
+          total = total + j.amount * item.count;
+        }
+        this.setState({ tot: total });
       });
     });
-    console.log(total,"total");
+  };
+  clothess = () => {
+    this.setState({
+      cateogryP: "clothes",
+    });
+  };
+  techs = () => {
+    this.setState({
+      cateogryP: "tech",
+    });
+  };
 
+  openModel = () => {
+    this.setState(
+      {
+        modal: true,
+      },
+      () => {
+        this.windowOffset = window.scrollY;
+        document.body.setAttribute(
+          "style",
+          `position:fixed; top: -${this.windowOffset}px;left:0;right:0;`
+        );
+      }
+    );
+  };
+  closeModel = () => {
+    this.setState(
+      {
+        modal: false,
+      },
+      () => {
+        document.body.setAttribute("style", "");
+        window.scrollTo(0, this.windowOffset);
+      }
+    );
+  };
+  openCurr = () => {
+    this.setState({
+      filterCurr: true,
+    });
+  };
+  closeCurr = () => {
+    this.setState({
+      filterCurr: false,
+    });
+  };
+  att = (cart) => {
+    cart.map((h) => {
+      this.setState({
+        attribut: h.attributes,
+      });
+    });
+  };
+  changin = (pr_id, att_id, att_value, att_id2) => {
+    const obj = {
+      pr_id: pr_id,
+      att_id: att_id,
+      att_value: att_value,
+      att_id2: att_id2,
+    };
+    let items = [...this.state.attribut];
+    for (let i = 0; i <= this.state.attribut.length; i++) {
+      if (
+        pr_id === this.state.attribut[i]?.pr_id &&
+        att_id === this.state.attribut[i]?.att_id
+      ) {
+        let item = { ...items[i] };
+        item.att_value = att_value;
+        items[i] = item;
+        console.log(items[i], "what is this");
+        this.setState({
+          attribut: [...items],
+        });
+        break;
+      } else {
+        this.setState({
+          attribut: [...this.state.attribut, obj],
+        });
+      }
+    }
   };
 
   render() {
-    console.log(this.state.cart, "cart");
-    // console.log(this.addTotal, "total");
     return (
       <ProductContext.Provider
         value={{
@@ -145,10 +222,15 @@ class ProductProvdier extends Component {
           rem: this.remove,
           dec: this.decrement,
           inc: this.increment,
-          fil: this.filterCurrency,
+          fil: this.filter,
           open: this.openModel,
           close: this.closeModel,
-          tot:this.addTotal,
+          catFil: this.CatFilter,
+          clothes: this.clothess,
+          tech: this.techs,
+          at: this.changin,
+          closeCurr: this.closeCurr,
+          openCurr: this.openCurr,
         }}
       >
         {this.props.children}

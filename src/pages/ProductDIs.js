@@ -1,30 +1,55 @@
 import React, { Component } from "react";
 import { ProductConsumer } from "../Context";
-import "./ProductDis.css";
 import styled from "styled-components";
+import getSymbolFromCurrency from "currency-symbol-map";
 
 export default class ProductDIs extends Component {
+  constructor() {
+    super();
+    this.state = {
+      color: ""
+    };
+  }
   render() {
     return (
       <ProductConsumer>
         {(value) => {
+          const regex = /(<([^>]+)>)/gi;
+          const result = value.cartItems.description.replace(regex,"");
+          const limit = 400;
           return (
-            <Product_disc>
-              <Product_left>
-                <Product_left_imgs>
-                  <Multi src={value.cartItems.gallery[1]} alt="" />
-                  <Multi src={value.cartItems.gallery[2]} alt="" />
-                  <Multi src={value.cartItems.gallery[3]} alt="" />
-                  <Multi src={value.cartItems.gallery[4]} alt="" />
-                </Product_left_imgs>
-                <Product_left_main
+            <ProductDisc>
+              <ProductLeft>
+                <ProductLeftimgs>
+                  {value.cartItems.gallery[1] ? (
+                    <Multi src={value.cartItems.gallery[1]} alt="" />
+                  ) : (
+                    ""
+                  )}
+                  {value.cartItems.gallery[2] ? (
+                    <Multi src={value.cartItems.gallery[2]} alt="" />
+                  ) : (
+                    ""
+                  )}
+                  {value.cartItems.gallery[3] ? (
+                    <Multi src={value.cartItems.gallery[3]} alt="" />
+                  ) : (
+                    ""
+                  )}
+                  {value.cartItems.gallery[4] ? (
+                    <Multi src={value.cartItems.gallery[4]} alt="" />
+                  ) : (
+                    ""
+                  )}
+                </ProductLeftimgs>
+                <ProductLeftmain
                   src={value.cartItems.gallery[0]}
                   alt=""
                   className="left_img"
                 />
-              </Product_left>
-              <Product_right>
-                <Product_name>{value.cartItems.name}</Product_name>
+              </ProductLeft>
+              <ProductRight>
+                <ProductName>{value.cartItems.name}</ProductName>
                 <p>
                   {value.cartItems.attributes.map((g) => {
                     return (
@@ -32,29 +57,51 @@ export default class ProductDIs extends Component {
                         <p
                           key={g.id}
                           style={{
-                            fontSize: "18px",
-                            fontWeight: "700",
+                            fontSize: "22px",
+                            fontWeight: "800",
                             lineHeight: "18px",
                           }}
                         >
-                          {g.name}:
+                          {g.name}
                         </p>
                         <p style={{ display: "flex" }}>
-                          {g.items.map((h) => {
+                          {g.items.map((h, i) => {
                             return (
-                              <button
-                                style={{
-                                  width: "63px",
-                                  height: "45px",
-                                  marginRight: "20px",
-                                  padding: "5px 7px",
-                                  background: "transparent",
-                                  border: "1px solid black",
-                                  fontSize: "16px",
-                                }}
-                              >
-                                {h.value}
-                              </button>
+                              <div>
+                                <button
+                                  style={{
+                                    width: "63px",
+                                    height: "45px",
+                                    marginRight: "20px",
+                                    padding: "5px 7px",
+                                    background: "transparent",
+                                    border: "1px solid black",
+                                    fontSize: "20px",
+                                    backgroundColor: h.value,
+                                  }}
+                                  onClick={() => {
+                                    value.at(
+                                      value.cartItems.id,
+                                      g.id,
+                                      h.displayValue,
+                                      h.value
+                                    );
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      backgroundColor: h.value,
+                                      fontSize: "14px",
+                                      fontWeight: "600",
+                                      color: h.value,
+                                      display: "flex",
+                                      justifyContent: "center"
+                                    }}
+                                  >
+                                    {h.value}
+                                  </div>
+                                </button>
+                              </div>
                             );
                           })}
                         </p>
@@ -65,26 +112,26 @@ export default class ProductDIs extends Component {
                 <div>
                   <p
                     style={{
-                      fontSize: "18px",
-                      fontWeight: "700",
+                      fontSize: "22px",
+                      fontWeight:"800",
                       lineHeight: "18px",
                     }}
                   >
-                    Prices
+                    Prices 
                   </p>
                   {value.cartItems.prices.map((j) => {
                     return (
                       <p
                         style={{
-                          fontSize: "24px",
+                          fontSize: "25px",
                           fontWeight: "700",
-                          lineHeight: "18px",
+                          lineHeight: "18px"
                         }}
                       >
                         {j.currency === `${value.curr}` ? (
                           <p>
                             {j.currency === `${value.curr}`}
-                            {j.currency}:{j.amount}
+                            {getSymbolFromCurrency(j.currency)} {j.amount}
                           </p>
                         ) : (
                           ""
@@ -93,31 +140,48 @@ export default class ProductDIs extends Component {
                     );
                   })}
                 </div>
-                <Add_to_cart onClick={() => value.cartt(value.cartItems)}>
+                <AddTocart onClick={() => value.cartt(value.cartItems)}>
                   Add to Cart
-                </Add_to_cart>
-                <p>{value.cartItems.description}</p>
-              </Product_right>
-            </Product_disc>
+                </AddTocart>
+                <p
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: "400",
+                    lineHeight: "25px",
+                    width: "480px",
+                    height: "150px"
+                  }}
+                >
+                  {result.length > limit ? (
+                    <div>{`${result.substring(0, limit)}...`}</div>
+                  ) : (
+                    <p>{result}</p>
+                  )}
+                </p>
+              </ProductRight>
+            </ProductDisc>
           );
         }}
       </ProductConsumer>
     );
   }
 }
-
-const Product_disc = styled.div`
+const ProductDisc = styled.div`
   display: flex;
-  width: 100%;
+  width: 92%;
   height: 100%;
+  padding: 25px;
+  margin-top:30px;
 `;
-const Product_left = styled.div`
+const ProductLeft = styled.div`
   display: flex;
-  flex: 0.55;
-  padding: 20px 30px;
+  flex: 0.75;
+  padding: 10px 0;
   height: 80vh;
+  width: 100%;
+  justify-content: center;
 `;
-const Product_left_imgs = styled.div`
+const ProductLeftimgs = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -127,29 +191,29 @@ const Multi = styled.img`
   padding-bottom: 10px;
   object-fit: contain;
 `;
-const Product_left_main = styled.img`
-  width: 65%;
+const ProductLeftmain = styled.img`
+  width: 80%;
   object-fit: contain;
 `;
-const Product_right = styled.div`
-  flex: 0.45;
+const ProductRight = styled.div`
+  flex: 0.35;
+  padding: 40px;
 `;
-const Product_name = styled.p`
+const ProductName = styled.p`
   font-weight: 600;
-  font-size: 30px;
-  line-height: 27px;
+  font-size: 35px;
+  line-height: 30px;
   color: #1d1f22;
 `;
-const Add_to_cart = styled.button`
-  height: 52px;
-  width: 292px;
+const AddTocart = styled.button`
+  height: 55px;
+  width: 320px;
   border: none;
   padding: 16px, 32px, 16px, 32px;
   background-color: #5ece7b;
   color: #fff;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 16px;
-  line-height: 19.2px;
+  font-size: 18px;
+  line-height: 22px;
 `;
-// const Product_disc = styled.div``;

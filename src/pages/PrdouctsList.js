@@ -6,23 +6,30 @@ import styled from "styled-components";
 export default class PrdouctsList extends Component {
   render() {
     return (
-      <Products_all>
+      <ProductsAll>
         <ProductConsumer>
           {(value) => {
             return value.products.map((product) => {
               return (
                 <div>
-                  <Products key={product.id} pro={product} />
+                  {product.category === `${value.cateogryP}` ? (
+                    <Products
+                      key={product.id}
+                      pro={product}
+                    />
+                  ) : (
+                    ""
+                  )}
                 </div>
               );
             });
           }}
         </ProductConsumer>
-      </Products_all>
+      </ProductsAll>
     );
   }
 }
-const Products_all = styled.div`
+const ProductsAll = styled.div`
   display: flex;
   width: 100%;
   flex-wrap: wrap;

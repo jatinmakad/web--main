@@ -3,49 +3,46 @@ import { Link } from "react-router-dom";
 import { ProductConsumer } from "../Context";
 import styled from "styled-components";
 import Cart_icon from "../Images/Common.svg";
-
+import getSymbolFromCurrency from "currency-symbol-map";
 export default class Products extends Component {
   render() {
-    const { id, name, prices, gallery } =
-      this.props.pro;
+    const { id, name, prices, gallery } = this.props.pro;
     return (
       <ProductMain>
         <ProductWrapper>
           <ProductConsumer>
             {(value) => {
               return (
-                <Productt onClick={() => value.detail(id)}>
-                  <Link to="/products/">
-                    <ProductImg img src={gallery[0]} alt="hello" />
-                  </Link>
-
-                  <Cart_ic
-                    img
-                    src={Cart_icon}
-                    alt=""
-                    onClick={() => value.cartt(this.props.pro)}
-                  />
-
-                  <ProductName>{name}</ProductName>
-                  <Product_price>
-                    {prices.map((j) => {
-                      return (
-                        <div>
-                          <p>
+                <div>
+                  <Productt onClick={() => value.detail(id)}>
+                    <Link to={`/products/${id}`}>
+                      <ProductImg img src={gallery[0]} alt="hello" />
+                    </Link>
+                    <CartIc
+                      img
+                      src={Cart_icon}
+                      alt=""
+                      onClick={() => value.cartt(this.props.pro)}
+                    />
+                    <ProductName>{name}</ProductName>
+                    <ProductPrice>
+                      {prices.map((j) => {
+                        return (
+                          <div>
                             {j.currency === `${value.curr}` ? (
                               <p>
                                 {j.currency === `${value.curr}`}
-                                {j.currency}:{j.amount}
+                                {getSymbolFromCurrency(j.currency)} : {j.amount}
                               </p>
                             ) : (
                               ""
                             )}
-                          </p>
-                        </div>
-                      );
-                    })}
-                  </Product_price>
-                </Productt>
+                          </div>
+                        );
+                      })}
+                    </ProductPrice>
+                  </Productt>
+                </div>
               );
             }}
           </ProductConsumer>
@@ -60,15 +57,14 @@ const ProductMain = styled.div`
   width: 70%;
 `;
 const Productt = styled.div``;
-const Cart_ic = styled.img`
+const CartIc = styled.img`
   position: absolute;
-  top: 72%;
+  top: 68%;
   left: 80%;
   width: 52px;
   height: 52px;
   display: none;
 `;
-
 const ProductWrapper = styled.div`
   position: relative;
   padding: 20px 30px;
@@ -76,28 +72,28 @@ const ProductWrapper = styled.div`
   margin-bottom: 70px;
   display: flex;
   padding-bottom: 20px;
-  width: 386px;
-  height: 444px;
+  width: 380px;
+  height: 420px;
   &:hover {
-    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
-    ${Cart_ic} {
+    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.3);
+    ${CartIc} {
       display: block;
     }
   }
 `;
 const ProductImg = styled.img`
-  width: 356px;
-  height: 338px;
+  width: 340px;
+  height: 300px;
   object-fit: contain;
 `;
 const ProductName = styled.p`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 300;
-  line-height: 28.8px;
+  line-height: 30px;
 `;
-const Product_price = styled.p`
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 28.8px;
+const ProductPrice = styled.p`
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
   color: #1d1f22;
 `;

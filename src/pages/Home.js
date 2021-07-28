@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import Header from "./Header";
-
+import ProductList from "./PrdouctsList";
+import Title from "./Title";
 
 export default class Home extends Component {
   render() {
     return (
-      <div>
-        <Header/>
-       <h1>Home</h1>
-      </div>
+      <>
+        <Title />
+        <ProductList />
+      </>
     );
   }
 }
