@@ -8,7 +8,6 @@ export default class ProductDIs extends Component {
     super();
     this.state = {
       img: 0,
-      but: "",
     };
   }
 
@@ -17,11 +16,7 @@ export default class ProductDIs extends Component {
       img: h,
     }),
   ];
-  setButton = (e) => {
-    this.setState({
-      but: e,
-    });
-  };
+
   render() {
     console.log(this.state.img, "img");
     return (
@@ -33,7 +28,7 @@ export default class ProductDIs extends Component {
           return (
             <ProductDisc>
               <ProductLeft>
-                <ProductLeftimgs style={{cursor:"pointer"}}>
+                <ProductLeftimgs>
                   {value.cartItems.gallery[1] ? (
                     <Multi
                       src={value.cartItems.gallery[1]}
@@ -57,7 +52,6 @@ export default class ProductDIs extends Component {
                       src={value.cartItems.gallery[3]}
                       alt=""
                       onClick={() => this.change(3)}
-                      
                     />
                   ) : (
                     ""
@@ -67,7 +61,6 @@ export default class ProductDIs extends Component {
                       src={value.cartItems.gallery[4]}
                       alt=""
                       onClick={() => this.change(4)}
-                    
                     />
                   ) : (
                     ""
@@ -110,8 +103,6 @@ export default class ProductDIs extends Component {
                                     background: "transparent",
                                     border: "1px solid black",
                                     fontSize: "20px",
-                                    borderWidth:
-                                      h.value === this.state.but ? "5px" : "",
                                     color: h.value,
                                     background: h.value,
                                     cursor: "pointer",
@@ -123,7 +114,6 @@ export default class ProductDIs extends Component {
                                       h.displayValue,
                                       h.value
                                     );
-                                    this.setButton(h.value);
                                   }}
                                 >
                                   <div
