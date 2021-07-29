@@ -72,9 +72,11 @@ const DropdownItem = styled.div`
 const DropdownContent = styled.div`
   position: absolute;
   top: 130%;
-  left: -10%;
+  left: -20%;
+  height:180px;
   padding: 10px;
   display: flex;
+  justify-content:space-between;
   flex-direction: column;
   align-items: center;
   background: #fff;

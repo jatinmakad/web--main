@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Filter from "./Filter";
 import "./Header.css";
 import Cart_icon from "../Images/Empty Cart.svg";
@@ -21,44 +21,56 @@ export default class Header extends Component {
             <HeaderMain>
               <Head>
                 <HeaderFirst>
-                  <p
-                    style={{
-                      fontSize: "19px",
-                      fontWeight: "600",
-                      lineHeight: "20px",
-                      cursor: "pointer",
-                      letterSpacing: "1px",
-                    }}
-                    value={value.cateogryP}
-                    onClick={() => value.clothes()}
-                    className={
-                      value.cateogryP === "clothes"
-                        ? "active_class"
-                        : "clothes_ct"
-                    }
+                  <NavLink
+                    to="/"
+                    style={{ textDecoration: "none", color: "black" }}
                   >
-                    Clothes
-                  </p>
-                  <p
-                    style={{
-                      fontSize: "19px",
-                      fontWeight: "600",
-                      lineHeight: "20px",
-                      cursor: "pointer",
-                      letterSpacing: "1.5px",
-                    }}
-                    value={value.cateogryP}
-                    onClick={() => value.tech()}
-                    className={
-                      value.cateogryP === "tech" ? "active_class_to" : "tech_ct"
-                    }
+                    <p
+                      style={{
+                        fontSize: "19px",
+                        fontWeight: "600",
+                        lineHeight: "20px",
+                        cursor: "pointer",
+                        letterSpacing: "1px",
+                      }}
+                      value={value.cateogryP}
+                      onClick={() => value.clothes()}
+                      className={
+                        value.cateogryP === "clothes"
+                          ? "active_class"
+                          : "clothes_ct"
+                      }
+                    >
+                      Clothes
+                    </p>
+                  </NavLink>
+                  <NavLink
+                    to="/"
+                    style={{ textDecoration: "none", color: "black" }}
                   >
-                    Tech
-                  </p>
+                    <p
+                      style={{
+                        fontSize: "19px",
+                        fontWeight: "600",
+                        lineHeight: "20px",
+                        cursor: "pointer",
+                        letterSpacing: "1.5px",
+                      }}
+                      value={value.cateogryP}
+                      onClick={() => value.tech()}
+                      className={
+                        value.cateogryP === "tech"
+                          ? "active_class_to"
+                          : "tech_ct"
+                      }
+                    >
+                      Tech
+                    </p>
+                  </NavLink>
                 </HeaderFirst>
-                <Link to="/">
+                <NavLink to="/">
                   <img src={Home} alt="" />
-                </Link>
+                </NavLink>
                 <HeaderLast>
                   <Filter />
                   <HeadLasticon
@@ -68,18 +80,15 @@ export default class Header extends Component {
                         : () => value.open()
                     }
                   >
-                    <img
-                      src={Cart_icon}
-                      alt=""
-                    />
+                    <img src={Cart_icon} alt="" />
                     {value.cart.length === 0 ? (
                       ""
                     ) : (
                       <p
                         style={{
                           position: "absolute",
-                          top: "-110%",
-                          left: "90%",
+                          top: "-35%",
+                          left: "70%",
                           background: "black",
                           color: "white",
                           borderRadius: "50%",
@@ -97,6 +106,7 @@ export default class Header extends Component {
                         <p
                           style={{
                             fontWeight: "700",
+                            marginBottom: "10px",
                           }}
                         >
                           My Bag,
@@ -116,23 +126,36 @@ export default class Header extends Component {
                               style={{
                                 display: "flex",
                                 width: "100%",
+                                height: "160px",
                                 justifyContent: "space-between",
-                                marginBottom: "15px",
+                                marginBottom: "12px",
                                 borderBottom: "1px solid black",
                               }}
                             >
-                              <div>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  justifyContent: "space-around",
+                                  padding: "5px 0",
+                                }}
+                              >
                                 <p
                                   style={{
-                                    fontSize: "18px",
-                                    fontWeight: "600",
-                                    lineHeight: "25px",
+                                    fontSize: "16px",
+                                    fontWeight: "300",
+                                    lineHeight: "24px",
                                   }}
                                 >
                                   {g.name}
                                 </p>
-                                <div> 
-                                  <p style={{fontWeight:"600",fontSize:"13px"}}>
+                                <div>
+                                  <p
+                                    style={{
+                                      fontWeight: "600",
+                                      fontSize: "13px",
+                                    }}
+                                  >
                                     {g.attributes.map((c) => {
                                       return (
                                         <div>
@@ -146,15 +169,23 @@ export default class Header extends Component {
                                                         {c.id === x.att_id &&
                                                         y.displayValue ===
                                                           x.att_value ? (
-                                                          <p>
-                                                            {c.id} :  {""}
+                                                          <p
+                                                            style={{
+                                                              fontSize: "12px",
+                                                            }}
+                                                          >
+                                                            {c.id} : {""}
                                                             <button
                                                               style={{
-                                                                marginLeft:"3px",
-                                                                padding:"2px",
-                                                                width:"48px",
-                                                                height:"20px",
-                                                                fontSize:"11px",
+                                                                marginBottom:
+                                                                  "5px",
+                                                                marginLeft:
+                                                                  "3px",
+                                                                padding: "2px",
+                                                                width: "48px",
+                                                                height: "20px",
+                                                                fontSize:
+                                                                  "11px",
                                                                 background:
                                                                   x.att_value,
                                                                 color:
@@ -217,17 +248,16 @@ export default class Header extends Component {
                               <div
                                 style={{
                                   display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
                                 }}
                               >
                                 <div
                                   style={{
+                                    padding: "10px 0",
                                     display: "flex",
                                     flexDirection: "column",
                                     alignItems: "center",
-                                    justifyContent: "center",
-                                    marginRight: "20px",
+                                    justifyContent: "space-between",
+                                    marginRight: "10px",
                                   }}
                                 >
                                   <img
@@ -273,20 +303,48 @@ export default class Header extends Component {
                         style={{
                           display: "flex",
                           width: "100%",
+                          margin: "30px 0",
                           justifyContent: "space-between",
                           fontWeight: "600",
                           fontSize: "16px",
                           lineHeight: "1px",
-                          alignItems:"center",
+                          alignItems: "center",
                         }}
                       >
                         <p>Total</p>
                         <p>
-                          {value.cart.length === 0 ? (
-                            <p>{(value.tot = 0)}</p>
-                          ) : (
-                            <p>{money.toFixed(2)}</p>
-                          )}
+                          {value.cart.map((h) => {
+                            return (
+                              <div>
+                                {h.prices.map((y) => {
+                                  return (
+                                    <div>
+                                      {y.currency === `${value.curr}` ? (
+                                        <p
+                                          style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                          }}
+                                        >
+                                          {y.currency === `${value.curr}`}
+                                          {getSymbolFromCurrency(y.currency)}
+                                          <p>
+                                            {value.cart.length === 0 ? (
+                                              ""
+                                            ) : (
+                                              <p>{money.toFixed(2)}</p>
+                                            )}
+                                          </p>
+                                        </p>
+                                      ) : (
+                                        ""
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            );
+                          })}
                         </p>
                       </div>
                       <div
@@ -296,7 +354,7 @@ export default class Header extends Component {
                           justifyContent: "space-between",
                         }}
                       >
-                        <Link to="/cart">
+                        <NavLink to="/cart">
                           <button
                             style={{
                               width: "140px",
@@ -307,12 +365,13 @@ export default class Header extends Component {
                               border: "1.6px solid black",
                               fontWeight: "600",
                               lineHeight: "17px",
+                              cursor: "pointer",
                             }}
                             onClick={() => value.close()}
                           >
                             View Bag
                           </button>
-                        </Link>
+                        </NavLink>
                         <button
                           style={{
                             width: "140px",
@@ -339,8 +398,8 @@ export default class Header extends Component {
   }
 }
 const HeaderMain = styled.div`
-  width: 1330px;
-  height: 90px;
+  max-width: 1400px;
+  height: 80px;
   margin: 0 auto;
 `;
 const HeadLasticon = styled.div`

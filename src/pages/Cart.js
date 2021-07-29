@@ -9,13 +9,14 @@ export default class Cart extends Component {
     return (
       <div
         style={{
-          width: "1300px",
+          width: "1400px",
           margin: "0 auto",
+          height: "110vh",
         }}
       >
         <h1
           style={{
-            paddingBottom: "35px",
+            padding: "40px 0",
             width: "90%",
             fontSize: "40px",
             fontWeight: "700",
@@ -39,13 +40,20 @@ export default class Cart extends Component {
                         style={{
                           display: "flex",
                           width: "90%",
+                          height: "180px",
+                          padding: "30px 0",
                           justifyContent: "space-between",
-                          marginBottom: "40px",
+                          marginBottom: "20px",
                           borderBottom: "1px solid black",
-                          paddingBottom: "20px",
                         }}
                       >
-                        <div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-around",
+                          }}
+                        >
                           <p
                             style={{
                               fontSize: "30px",
@@ -73,7 +81,7 @@ export default class Cart extends Component {
                                                     <p
                                                       style={{
                                                         fontSize: "17px",
-                                                        fontWeight: "600",
+                                                        fontWeight: "700",
                                                         paddingBottom: "8px",
                                                         margin: "0",
                                                       }}
@@ -117,7 +125,7 @@ export default class Cart extends Component {
 
                           <p
                             style={{
-                              fontSize: "22px",
+                              fontSize: "25px",
                               fontWeight: "500",
                               lineHeight: "1px",
                             }}
@@ -132,6 +140,8 @@ export default class Cart extends Component {
                                         style={{
                                           display: "flex",
                                           alignItems: "center",
+                                          fontWeight: "600",
+                                          fontSize: "24px",
                                         }}
                                       >
                                         <p
@@ -159,8 +169,9 @@ export default class Cart extends Component {
                         <div
                           style={{
                             display: "flex",
+                            height: "100%",
                             alignItems: "center",
-                            justifyContent: "center",
+                            justifyContent: "space-between",
                           }}
                         >
                           <div
@@ -168,8 +179,9 @@ export default class Cart extends Component {
                               display: "flex",
                               flexDirection: "column",
                               alignItems: "center",
-                              justifyContent: "center",
                               marginRight: "20px",
+                              height: "100%",
+                              justifyContent: "space-between",
                             }}
                           >
                             <img
@@ -177,7 +189,7 @@ export default class Cart extends Component {
                               alt=""
                               onClick={() => value.inc(g)}
                             />
-                            <p>{g.count}</p>
+                            <p style={{ fontSize: "20px" }}>{g.count}</p>
                             <img
                               src={Minus}
                               alt=""
@@ -193,7 +205,7 @@ export default class Cart extends Component {
                             alt=""
                             style={{
                               width: "140px",
-                              height: "185px",
+                              height: "200px",
                               objectFit: "contain",
                               marginBottom: "15px",
                             }}
@@ -207,15 +219,49 @@ export default class Cart extends Component {
                       display: "flex",
                       width: "90%",
                       justifyContent: "space-between",
-                      fontWeight: "500",
-                      fontSize: "28px",
-                      lineHeight: "18px",
-                      letterSpacing: "2px",
+                      fontWeight: "600",
+                      fontSize: "30px",
+                      lineHeight: "1px",
+                      letterSpacing: "3px",
+                      textTransform: "uppercase",
+                      marginTop: "50px",
                     }}
                   >
-                    {value.cart.length === 0 ? "" : <p>Total</p>}
+                    <p> {value.cart.length === 0 ? "" : <p>Total</p>}</p>
+
                     <p>
-                      {value.cart.length === 0 ? "" : <p>{money.toFixed(2)}</p>}
+                      {value.cart.map((h) => {
+                        return (
+                          <div>
+                            {h.prices.map((y) => {
+                              return (
+                                <div>
+                                  {y.currency === `${value.curr}` ? (
+                                    <p
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                      }}
+                                    >
+                                      {y.currency === `${value.curr}`}
+                                      {getSymbolFromCurrency(y.currency)}
+                                      <p>
+                                        {value.cart.length === 0 ? (
+                                          ""
+                                        ) : (
+                                          <p>{money.toFixed(2)}</p>
+                                        )}
+                                      </p>
+                                    </p>
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        );
+                      })}
                     </p>
                   </div>
                 </p>

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { ProductConsumer } from "../Context";
 import OutsideClick from "../OutsideClick/OutsideClick";
+import Styled from "styled-components";
+import styled from "styled-components";
 
 export default class Overlay extends Component {
   render() {
@@ -10,7 +12,7 @@ export default class Overlay extends Component {
       <div
         style={{
           position: "fixed",
-          top: "12.9%",
+          top: "11.5%",
           left: "0",
           right: "0",
           bottom: "0",
@@ -18,16 +20,16 @@ export default class Overlay extends Component {
           zIndex: "1000",
         }}
       >
-        <div
+        <Fade
           style={{
             position: "fixed",
-            top: "12.9%",
-            left: "70%",
+            top: "11.5%",
+            left: "74%",
             backgroundColor: "#fff",
             padding: "30px",
             zIndex: "1000",
-            width: "300px",
-            maxHeight: "500px",
+            width: "325px",
+            maxHeight: "540px",
            overflowY:"auto",
           }}
         >
@@ -40,8 +42,15 @@ export default class Overlay extends Component {
               );
             }}
           </ProductConsumer>
-        </div>
+        </Fade>
       </div>
     );
   }
 }
+
+const Fade = styled.div`
+&::-webkit-scrollbar {
+  width: 1px;
+  border: 1px solid black;
+}
+`;

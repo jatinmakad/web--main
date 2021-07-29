@@ -199,7 +199,6 @@ class ProductProvdier extends Component {
         let item = { ...items[i] };
         item.att_value = att_value;
         items[i] = item;
-        console.log(items[i], "what is this");
         this.setState({
           attribut: [...items],
         });

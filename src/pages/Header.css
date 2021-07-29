@@ -2,14 +2,16 @@
     color: #5ECE7B;
     font-weight: 600;
 }
+
 .active_class::after{
     content: "";
     position: absolute;
     width: 90px;
     height: 4px;
     top: 100%;
-    right: 93.7%;
+    right: 94%;
     background-color: #5ECE7B;
+    
 }
 .active_class_to{
     color: #5ECE7B;
@@ -21,6 +23,7 @@
     width: 78px;
     height: 4px;
     top: 100%;
-    right: 85%;
+    right: 86%;
     background-color: #5ECE7B;
+    
 }

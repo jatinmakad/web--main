@@ -15,7 +15,8 @@ export default class Title extends Component {
                   lineHeight: "67,2px",
                   textTransform: "capitalize",
                   letterSpacing: "5px",
-                  marginLeft: "80px",
+                  marginTop:"20px",
+                  marginLeft: "60px",
                 }}
               >
                 {value.cateogryP}

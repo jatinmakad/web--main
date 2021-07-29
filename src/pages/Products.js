@@ -14,15 +14,15 @@ export default class Products extends Component {
             {(value) => {
               return (
                 <div>
+                    <Link to={`/products/${id}`} style={{textDecoration:"none"}}>
                   <Productt onClick={() => value.detail(id)}>
-                    <Link to={`/products/${id}`}>
+                  
                       <ProductImg img src={gallery[0]} alt="hello" />
-                    </Link>
+                    
                     <CartIc
                       img
                       src={Cart_icon}
                       alt=""
-                      onClick={() => value.cartt(this.props.pro)}
                     />
                     <ProductName>{name}</ProductName>
                     <ProductPrice>
@@ -41,8 +41,9 @@ export default class Products extends Component {
                         );
                       })}
                     </ProductPrice>
-                  </Productt>
-                </div>
+                   </Productt>
+                  </Link>
+              </div>
               );
             }}
           </ProductConsumer>
@@ -54,9 +55,11 @@ export default class Products extends Component {
 
 const ProductMain = styled.div`
   margin: 50px auto;
-  width: 70%;
+  max-width: 75%;
 `;
-const Productt = styled.div``;
+const Productt = styled.div`
+
+`;
 const CartIc = styled.img`
   position: absolute;
   top: 68%;
@@ -90,6 +93,9 @@ const ProductName = styled.p`
   font-size: 20px;
   font-weight: 300;
   line-height: 30px;
+  color:black;
+  margin-top:10px;
+  margin-bottom:20px;
 `;
 const ProductPrice = styled.p`
   font-size: 20px;
