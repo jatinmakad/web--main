@@ -3,49 +3,66 @@ import { Link } from "react-router-dom";
 import { ProductConsumer } from "../Context";
 import styled from "styled-components";
 import Cart_icon from "../Images/Common.svg";
-import getSymbolFromCurrency from "currency-symbol-map";
+import "./Header.css";
 export default class Products extends Component {
   render() {
-    const { id, name, prices, gallery } = this.props.pro;
+    const { id, name, prices, gallery, inStock } = this.props.pro;
     return (
       <ProductMain>
-        <ProductWrapper>
+        <ProductWrapper className={inStock === true ? "" : "outofstock"}>
+          <div className={inStock === true ? "" : "jat"}>
+            <p
+              style={{
+                position: "absolute",
+                top: "45%",
+                left: "25%",
+                fontSize: "30px",
+                letterSpacing: "1px",
+                zIndex: "10000",
+                textTransform: "uppercase",
+                display: inStock === true ? "none" : "block",
+              }}
+            >
+              out of stock
+            </p>
+          </div>
           <ProductConsumer>
-            {(value) => {
-              return (
-                <div>
-                    <Link to={`/products/${id}`} style={{textDecoration:"none"}}>
-                  <Productt onClick={() => value.detail(id)}>
-                  
-                      <ProductImg img src={gallery[0]} alt="hello" />
-                    
-                    <CartIc
-                      img
-                      src={Cart_icon}
-                      alt=""
-                    />
-                    <ProductName>{name}</ProductName>
-                    <ProductPrice>
-                      {prices.map((j) => {
-                        return (
-                          <div>
-                            {j.currency === `${value.curr}` ? (
-                              <p>
-                                {j.currency === `${value.curr}`}
-                                {getSymbolFromCurrency(j.currency)} : {j.amount}
-                              </p>
-                            ) : (
-                              ""
-                            )}
-                          </div>
-                        );
-                      })}
-                    </ProductPrice>
-                   </Productt>
+            {(value) => (
+              <div style={{ position: "absolute" }}>
+                <Productt onClick={() => value.detail(id)}>
+                  <Link
+                    to={"products/"+id}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <ProductImg img src={gallery[0]} alt="" />
                   </Link>
+                  <CartIc
+                    img
+                    src={Cart_icon}
+                    alt=""
+                    // onClick={() => value.cartt(value.cartItems)}
+                  />
+                  <ProductName>{name}</ProductName>
+                  <ProductPrice>
+                    {prices.map((j) => {
+                      const le = 'en-au'| 'ru-md';
+                      return (
+                        <div>
+                          {j.currency === `${value.curr}` ? (
+                            <p>
+                              {j.currency === `${value.curr}`}
+                              {new Intl.NumberFormat(le, { style: 'currency', currency: `${value.curr}` }).format(`${j.amount}`)}
+                            </p>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      );
+                    })}
+                  </ProductPrice>
+                </Productt>
               </div>
-              );
-            }}
+            )}
           </ProductConsumer>
         </ProductWrapper>
       </ProductMain>
@@ -57,9 +74,7 @@ const ProductMain = styled.div`
   margin: 50px auto;
   max-width: 75%;
 `;
-const Productt = styled.div`
-
-`;
+const Productt = styled.div``;
 const CartIc = styled.img`
   position: absolute;
   top: 68%;
@@ -93,9 +108,9 @@ const ProductName = styled.p`
   font-size: 20px;
   font-weight: 300;
   line-height: 30px;
-  color:black;
-  margin-top:10px;
-  margin-bottom:20px;
+  color: black;
+  margin-top: 10px;
+  margin-bottom: 20px;
 `;
 const ProductPrice = styled.p`
   font-size: 20px;

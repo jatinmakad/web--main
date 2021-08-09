@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 import { ProductConsumer } from "../Context";
 import styled from "styled-components";
-import getSymbolFromCurrency from "currency-symbol-map";
 
 export default class ProductDIs extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       img: 0,
     };
   }
-
   change = (h) => [
     this.setState({
       img: h,
@@ -18,18 +16,17 @@ export default class ProductDIs extends Component {
   ];
 
   render() {
-    console.log(this.state.img, "img");
+    console.log(this.state.click_id, "click");
     return (
       <ProductConsumer>
         {(value) => {
-          const regex = /(<([^>]+)>)/gi;
-          const result = value.cartItems.description.replace(regex, "");
-          const limit = 400;
+          let regex = /(<([^>]+)>)/gi;
+          let result = value.cartItems.description?.replace(regex, "");
           return (
             <ProductDisc>
               <ProductLeft>
                 <ProductLeftimgs>
-                  {value.cartItems.gallery[1] ? (
+                  {value.cartItems.gallery && value.cartItems.gallery[1] ? (
                     <Multi
                       src={value.cartItems.gallery[1]}
                       alt=""
@@ -38,7 +35,8 @@ export default class ProductDIs extends Component {
                   ) : (
                     ""
                   )}
-                  {value.cartItems.gallery[2] ? (
+
+                  {value.cartItems.gallery && value.cartItems.gallery[2] ? (
                     <Multi
                       src={value.cartItems.gallery[2]}
                       alt=""
@@ -47,7 +45,7 @@ export default class ProductDIs extends Component {
                   ) : (
                     ""
                   )}
-                  {value.cartItems.gallery[3] ? (
+                  {value.cartItems.gallery && value.cartItems.gallery[3] ? (
                     <Multi
                       src={value.cartItems.gallery[3]}
                       alt=""
@@ -56,7 +54,7 @@ export default class ProductDIs extends Component {
                   ) : (
                     ""
                   )}
-                  {value.cartItems.gallery[4] ? (
+                  {value.cartItems.gallery && value.cartItems.gallery[4] ? (
                     <Multi
                       src={value.cartItems.gallery[4]}
                       alt=""
@@ -66,16 +64,20 @@ export default class ProductDIs extends Component {
                     ""
                   )}
                 </ProductLeftimgs>
-                <ProductLeftmain
-                  src={value.cartItems.gallery[`${this.state.img}`]}
-                  alt=""
-                  className="left_img"
-                />
+                {value.cartItems.gallery ? (
+                  <ProductLeftmain
+                    src={value.cartItems.gallery[`${this.state.img}`]}
+                    alt=""
+                    className="left_img"
+                  />
+                ) : (
+                  ""
+                )}
               </ProductLeft>
               <ProductRight>
-                <ProductName>{value.cartItems.name}</ProductName>
+                <ProductName>{value?.cartItems?.name}</ProductName>
                 <p>
-                  {value.cartItems.attributes.map((g) => {
+                  {value?.cartItems?.attributes?.map((g) => {
                     return (
                       <div>
                         <p
@@ -90,7 +92,7 @@ export default class ProductDIs extends Component {
                           {g.name}
                         </p>
                         <p style={{ display: "flex" }}>
-                          {g.items.map((h) => {
+                          {g.items?.map((h) => {
                             return (
                               <div>
                                 <button
@@ -100,7 +102,7 @@ export default class ProductDIs extends Component {
                                     marginBottom: "15px",
                                     marginRight: "20px",
                                     padding: "4px 5px",
-                                    background: "transparent",
+
                                     border: "1px solid black",
                                     fontSize: "20px",
                                     color: h.value,
@@ -147,7 +149,8 @@ export default class ProductDIs extends Component {
                   >
                     Prices
                   </p>
-                  {value.cartItems.prices.map((j) => {
+                  {value?.cartItems?.prices?.map((j) => {
+                    console.log(value.attribut, "att");
                     return (
                       <p
                         style={{
@@ -159,7 +162,10 @@ export default class ProductDIs extends Component {
                         {j.currency === `${value.curr}` ? (
                           <p>
                             {j.currency === `${value.curr}`}
-                            {getSymbolFromCurrency(j.currency)} {j.amount}
+                            {new Intl.NumberFormat("en-au" | "ru-md", {
+                              style: "currency",
+                              currency: `${value.curr}`,
+                            }).format(`${j.amount}`)}
                           </p>
                         ) : (
                           ""
@@ -168,6 +174,7 @@ export default class ProductDIs extends Component {
                     );
                   })}
                 </div>
+
                 <AddTocart onClick={() => value.cartt(value.cartItems)}>
                   Add to Cart
                 </AddTocart>
@@ -180,11 +187,7 @@ export default class ProductDIs extends Component {
                     height: "150px",
                   }}
                 >
-                  {result.length > limit ? (
-                    <div>{`${result.substring(0, limit)}...`}</div>
-                  ) : (
-                    <p>{result}</p>
-                  )}
+                  <p>{result}</p>
                 </p>
               </ProductRight>
             </ProductDisc>
@@ -247,5 +250,4 @@ const AddTocart = styled.button`
   font-weight: 600;
   font-size: 18px;
   line-height: 22px;
-  cursor: pointer;
 `;

@@ -1,29 +1,55 @@
-.active_class{
-    color: #5ECE7B;
-    font-weight: 600;
+.active_class {
+  color: #5ece7b;
+  font-weight: 600;
+}
+.active_class::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 4px;
+  top: 100%;
+  right: 88.5%;
+  background-color: #5ece7b;
+}
+.active_class_to {
+  color: #5ece7b;
+  font-weight: 600;
+}
+.active_class_to::after {
+  content: "";
+  position: absolute;
+  width: 78px;
+  height: 4px;
+  top: 100%;
+  right: 81%;
+  background-color: #5ece7b;
 }
 
-.active_class::after{
-    content: "";
-    position: absolute;
-    width: 90px;
-    height: 4px;
-    top: 100%;
-    right: 94%;
-    background-color: #5ECE7B;
-    
+.active_cla {
+  color: #5ece7b;
+  font-weight: 600;
 }
-.active_class_to{
-    color: #5ECE7B;
-    font-weight: 600;
+.active_cla::after {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 4px;
+  top: 100%;
+  right: 97%;
+  background-color: #5ece7b;
 }
-.active_class_to::after{
-    content: "";
-    position: absolute;
-    width: 78px;
-    height: 4px;
-    top: 100%;
-    right: 86%;
-    background-color: #5ECE7B;
-    
+.jat {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.1);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+.outofstock {
+  pointer-events: none !important;
+  cursor: not-allowed;
 }

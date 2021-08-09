@@ -35,7 +35,7 @@ export default class OutsideClick extends Component {
       !this.wrapperRef.contains(event.target) &&
       window.scrollY < 200
     ) {
-      this.props.clo();
+      this.props.clo()
     }
   }
   render() {

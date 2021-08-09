@@ -7,6 +7,7 @@ const DATA_USER = gql`
     category {
       products {
         id
+        inStock
         name
         gallery
         description
@@ -33,15 +34,15 @@ const DATA_USER = gql`
 
 const ProductContext = React.createContext();
 class ProductProvdier extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       products: [],
       currencies: [],
       cartItems: [],
       cart: [],
       curr: "USD",
-      cateogryP: "clothes",
+      cateogryP: "all",
       modal: false,
       filterCurr: false,
       tot: 0,
@@ -59,7 +60,14 @@ class ProductProvdier extends Component {
   };
   componentDidMount() {
     this.dataFetching();
+    this.setState({
+      cartItems: JSON.parse(localStorage.getItem("cartItems")),
+    });
   }
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem("cartItems", JSON.stringify(nextState.cartItems));
+  }
+
   details = (id) => {
     const cartItem = this.getItem(id);
     this.setState(() => {
@@ -72,39 +80,51 @@ class ProductProvdier extends Component {
     return products;
   };
   addToCart = (products) => {
-    const cart = this.state.cart.slice();
+    let cart = this.state.cart.slice();
+    let attribut = this.state.attribut.slice();
     let alreadyInCart = false;
     cart.forEach((item) => {
-      if (item.id === products.id) {
-        item.count++;
+      if (
+        item.attribut.length === this.state.attribut.length &&
+        item.attribut.every(
+          (e, i) =>
+            e.att_value === this.state.attribut[i].att_value &&
+            e.att_id === this.state.attribut[i].att_id &&
+            e.att_id2 === this.state.attribut[i].att_id2
+        )
+      ) {
         alreadyInCart = true;
+        item.count++;
+        this.setState({ attribut: [] });
       }
     });
+
     if (!alreadyInCart) {
-      cart.push({ ...products, count: 1 });
+      cart.push({ ...products, count: 1, co: 1, attribut }) &&
+        this.setState({ attribut: [] });
     }
     this.setState({ cart });
     this.addTotal(cart);
   };
   remove = (products) => {
     const cart = this.state.cart.slice();
-    this.setState({ cart: cart.filter((x) => x.id !== products.id) });
+    this.setState({ cart: cart.filter((x, index) => index !== products) });
   };
 
-  decrement = (products) => {
+  increment = (products) => {
     const cart = this.state.cart.slice();
     this.setState({
-      cart: cart.filter((x) =>
-        x.id === products.id ? { x, count: x.count-- } : x
+      cart: cart.filter((x, index) =>
+        index === products ? { x, count: x.count++ } : x
       ),
     });
     this.addTotal(cart);
   };
-  increment = (products) => {
+  decrement = (products) => {
     const cart = this.state.cart.slice();
     this.setState({
-      cart: cart.filter((x) =>
-        x.id === products.id ? { x, count: x.count++ } : x
+      cart: cart.filter((x, index) =>
+        index === products ? { x, count: x.count-- } : x
       ),
     });
     this.addTotal(cart);
@@ -112,6 +132,23 @@ class ProductProvdier extends Component {
   filter = (c) => {
     this.setState({
       curr: c,
+    });
+  };
+  increm = (products) => {
+    const cart = this.state.cart.slice();
+    this.setState({
+      cart: cart.filter((x, index) =>
+        index === products ? { x, co: x.co === 5 ? (x.co = 0) : x.co++ } : x
+      ),
+    });
+  };
+
+  decrem = (products) => {
+    const cart = this.state.cart.slice();
+    this.setState({
+      cart: cart.filter((x, index) =>
+        index === products ? { x, co: x.co === 0 ? (x.co = 4) : x.co-- } : x
+      ),
     });
   };
   CatFilter = (event) => {
@@ -128,6 +165,12 @@ class ProductProvdier extends Component {
         }
         this.setState({ tot: total });
       });
+    });
+  };
+
+  all = () => {
+    this.setState({
+      cateogryP: "all",
     });
   };
   clothess = () => {
@@ -167,14 +210,29 @@ class ProductProvdier extends Component {
     );
   };
   openCurr = () => {
-    this.setState({
-      filterCurr: true,
-    });
+    this.setState(
+      {
+        filterCurr: true,
+      },
+      () => {
+        this.windowOffset = window.scrollY;
+        document.body.setAttribute(
+          "style",
+          `position:fixed; top: -${this.windowOffset}px;left:0;right:0;`
+        );
+      }
+    );
   };
   closeCurr = () => {
-    this.setState({
-      filterCurr: false,
-    });
+    this.setState(
+      {
+        filterCurr: false,
+      },
+      () => {
+        document.body.setAttribute("style", "");
+        window.scrollTo(0, this.windowOffset);
+      }
+    );
   };
   att = (cart) => {
     cart.map((h) => {
@@ -230,6 +288,9 @@ class ProductProvdier extends Component {
           at: this.changin,
           closeCurr: this.closeCurr,
           openCurr: this.openCurr,
+          all: this.all,
+          in: this.increm,
+          de: this.decrem,
         }}
       >
         {this.props.children}

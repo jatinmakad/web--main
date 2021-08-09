@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { ProductConsumer } from "../Context";
 import OutsideClick from "../OutsideClick/OutsideClick";
-import Styled from "styled-components";
 import styled from "styled-components";
 
 export default class Overlay extends Component {

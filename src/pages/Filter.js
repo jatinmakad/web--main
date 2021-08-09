@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { ProductConsumer } from "../Context";
 import Arrow from "../Images/arrow.svg";
 import styled from "styled-components";
-import getSymbolFromCurrency from "currency-symbol-map";
-import OutsideClick2 from "../OutsideClick/OutsideClick2";
+
 
 export default class Filter extends Component {
   render() {
@@ -11,38 +10,38 @@ export default class Filter extends Component {
       <ProductConsumer>
         {(value) => {
           return (
-            <OutsideClick2 currClose={value.closeCurr}>
-              <Dropdown>
-                <DropdownBtn onClick={value.openCurr}>
-                  {value.curr}{" "}
-                  {value.filterCurr ? (
-                    <img src={Arrow} alt="" />
-                  ) : (
-                    <img
-                      src={Arrow}
-                      alt=""
-                      style={{
-                        transform: "rotate(180deg)",
-                      }}
-                    />
-                  )}
-                </DropdownBtn>
-
-                {value.filterCurr && (
-                  <DropdownContent>
-                    {value.currencies.map((g) => {
-                      return (
-                        <DropdownItem onClick={() => value.fil(g)}>
-                          <p onClick={value.closeCurr}>
-                            {getSymbolFromCurrency(g)} {g}
-                          </p>
-                        </DropdownItem>
-                      );
-                    })}
-                  </DropdownContent>
+          
+            <Dropdown>
+              <DropdownBtn onClick={value.openCurr}>
+                {value.curr}{" "}
+                {value.filterCurr ? (
+                  <img src={Arrow} alt="" />
+                ) : (
+                  <img
+                    src={Arrow}
+                    alt=""
+                    style={{
+                      transform: "rotate(180deg)",
+                    }}
+                  />
                 )}
-              </Dropdown>
-            </OutsideClick2>
+              </DropdownBtn>
+
+              {value.filterCurr && (
+                <DropdownContent>
+                  {value.currencies.map((g) => {
+                    return (
+                      <DropdownItem onClick={() => value.fil(g)}>
+                        <p onClick={value.closeCurr}>
+                           {g}
+                        </p>
+                      </DropdownItem>
+                    );
+                  })}
+                </DropdownContent>
+              )}
+            </Dropdown>
+        
           );
         }}
       </ProductConsumer>
@@ -73,10 +72,10 @@ const DropdownContent = styled.div`
   position: absolute;
   top: 130%;
   left: -20%;
-  height:180px;
+  height: 180px;
   padding: 10px;
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   flex-direction: column;
   align-items: center;
   background: #fff;

@@ -9,7 +9,6 @@ import Home from "../Images/main_logo.svg";
 import Overlay from "./Overlay";
 import Plus from "../Images/plus-square.svg";
 import Minus from "../Images/minus-square.svg";
-import getSymbolFromCurrency from "currency-symbol-map";
 
 export default class Header extends Component {
   render() {
@@ -21,6 +20,26 @@ export default class Header extends Component {
             <HeaderMain>
               <Head>
                 <HeaderFirst>
+                  <NavLink
+                    to="/"
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "19px",
+                        fontWeight: "600",
+                        lineHeight: "20px",
+                        cursor: "pointer",
+                        letterSpacing: "1.5px",
+                      }}
+                      onClick={() => value.all()}
+                      className={
+                        value.cateogryP === "all" ? "active_cla" : "all_ct"
+                      }
+                    >
+                      All
+                    </p>
+                  </NavLink>
                   <NavLink
                     to="/"
                     style={{ textDecoration: "none", color: "black" }}
@@ -120,7 +139,7 @@ export default class Header extends Component {
                         </p>
                       </div>
                       <div>
-                        {value.cart?.map((g) => {
+                        {value.cart?.map((g, index) => {
                           return (
                             <div
                               style={{
@@ -150,70 +169,14 @@ export default class Header extends Component {
                                   {g.name}
                                 </p>
                                 <div>
-                                  <p
-                                    style={{
-                                      fontWeight: "600",
-                                      fontSize: "13px",
-                                    }}
-                                  >
-                                    {g.attributes.map((c) => {
-                                      return (
-                                        <div>
-                                          <p>
-                                            {c.items.map((y) => {
-                                              return (
-                                                <div>
-                                                  {value.attribut.map((x) => {
-                                                    return (
-                                                      <div>
-                                                        {c.id === x.att_id &&
-                                                        y.displayValue ===
-                                                          x.att_value ? (
-                                                          <p
-                                                            style={{
-                                                              fontSize: "12px",
-                                                            }}
-                                                          >
-                                                            {c.id} : {""}
-                                                            <button
-                                                              style={{
-                                                                marginBottom:
-                                                                  "5px",
-                                                                marginLeft:
-                                                                  "3px",
-                                                                padding: "2px",
-                                                                width: "48px",
-                                                                height: "20px",
-                                                                fontSize:
-                                                                  "11px",
-                                                                background:
-                                                                  x.att_value,
-                                                                color:
-                                                                  x.att_value,
-                                                                border:
-                                                                  "1px solid gray",
-                                                              }}
-                                                            >
-                                                              {y.value ===
-                                                              x.att_value
-                                                                ? x.att_value
-                                                                : x.att_id2}
-                                                            </button>
-                                                          </p>
-                                                        ) : (
-                                                          ""
-                                                        )}
-                                                      </div>
-                                                    );
-                                                  })}
-                                                </div>
-                                              );
-                                            })}
-                                          </p>
-                                        </div>
-                                      );
-                                    })}
-                                  </p>
+                                  {g.attribut.map((q) => {
+                                    return (
+                                      <div>
+                                        <p>{q.att_id}</p>
+                                        <button>{q.att_value}</button>
+                                      </div>
+                                    );
+                                  })}
                                 </div>
                                 <p
                                   style={{
@@ -223,17 +186,20 @@ export default class Header extends Component {
                                   }}
                                 >
                                   {g.prices?.map((j) => {
-                                    const mo = j.amount * g.count;
+                                    const mo = j.amount;
                                     return (
                                       <div>
                                         <p>
                                           {j.currency === `${value.curr}` ? (
                                             <p>
                                               {j.currency === `${value.curr}`}
-                                              {getSymbolFromCurrency(
-                                                j.currency
-                                              )}
-                                              :{mo.toFixed(2)}
+                                              {new Intl.NumberFormat(
+                                                "en-au" | "ru-md",
+                                                {
+                                                  style: "currency",
+                                                  currency: `${value.curr}`,
+                                                }
+                                              ).format(`${mo.toFixed(2)}`)}
                                             </p>
                                           ) : (
                                             ""
@@ -263,7 +229,7 @@ export default class Header extends Component {
                                   <img
                                     src={Plus}
                                     alt=""
-                                    onClick={() => value.inc(g)}
+                                    onClick={() => value.inc(index)}
                                     style={{
                                       width: "25px",
                                       height: "25px",
@@ -279,8 +245,8 @@ export default class Header extends Component {
                                     }}
                                     onClick={
                                       g.count <= 1
-                                        ? () => value.rem(g)
-                                        : () => value.dec(g)
+                                        ? () => value.rem(index)
+                                        : () => value.dec(index)
                                     }
                                   />
                                 </div>
@@ -317,6 +283,7 @@ export default class Header extends Component {
                             return (
                               <div>
                                 {h.prices.map((y) => {
+                                  const le = "en-au" | "ru-md";
                                   return (
                                     <div>
                                       {y.currency === `${value.curr}` ? (
@@ -327,14 +294,10 @@ export default class Header extends Component {
                                           }}
                                         >
                                           {y.currency === `${value.curr}`}
-                                          {getSymbolFromCurrency(y.currency)}
-                                          <p>
-                                            {value.cart.length === 0 ? (
-                                              ""
-                                            ) : (
-                                              <p>{money.toFixed(2)}</p>
-                                            )}
-                                          </p>
+                                          {new Intl.NumberFormat(le, {
+                                            style: "currency",
+                                            currency: `${value.curr}`,
+                                          }).format(`${money.toFixed(2)}`)}
                                         </p>
                                       ) : (
                                         ""
@@ -417,7 +380,7 @@ const Head = styled.div`
 const HeaderFirst = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 180px;
+  width: 250px;
   font-size: 18px;
   font-weight: 600;
 `;

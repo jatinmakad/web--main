@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { ProductConsumer } from "../Context";
 import Plus from "../Images/plus-square.svg";
 import Minus from "../Images/minus-square.svg";
-import getSymbolFromCurrency from "currency-symbol-map";
+import Right_icon from "../Images/chevron-right.svg";
+import Left from "../Images/left.svg";
 
 export default class Cart extends Component {
   render() {
@@ -34,7 +35,8 @@ export default class Cart extends Component {
             return (
               <div>
                 <p>
-                  {value.cart.map((g) => {
+                  {value.cart.map((g,index) => {
+                    // console.log(index, "this")
                     return (
                       <div
                         style={{
@@ -63,64 +65,16 @@ export default class Cart extends Component {
                           >
                             {g.name}
                           </p>
+
                           <div>
-                            <p>
-                              {g.attributes.map((c) => {
-                                return (
-                                  <div>
-                                    <p>
-                                      {c.items.map((y) => {
-                                        return (
-                                          <div>
-                                            {value.attribut.map((x) => {
-                                              return (
-                                                <div>
-                                                  {c.id === x.att_id &&
-                                                  y.displayValue ===
-                                                    x.att_value ? (
-                                                    <p
-                                                      style={{
-                                                        fontSize: "17px",
-                                                        fontWeight: "700",
-                                                        paddingBottom: "8px",
-                                                        margin: "0",
-                                                      }}
-                                                    >
-                                                      {c.id} :{""}
-                                                      <button
-                                                        style={{
-                                                          margin: "0",
-                                                          marginLeft: "10px",
-                                                          width: "55px",
-                                                          height: "27px",
-                                                          fontWeight: "600",
-                                                          fontSize: "12px",
-                                                          background:
-                                                            x.att_value,
-                                                          color: x.att_value,
-                                                          border:
-                                                            "1px solid black",
-                                                        }}
-                                                      >
-                                                        {y.value === x.att_id2
-                                                          ? x.att_id2
-                                                          : x.att_value}
-                                                      </button>
-                                                    </p>
-                                                  ) : (
-                                                    ""
-                                                  )}
-                                                </div>
-                                              );
-                                            })}
-                                          </div>
-                                        );
-                                      })}
-                                    </p>
-                                  </div>
-                                );
-                              })}
-                            </p>
+                            {g.attribut.map((q) => {
+                              return (
+                                <div>
+                                  <p>{q.att_id}</p>
+                                  <button>{q.att_value}</button>
+                                </div>
+                              );
+                            })}
                           </div>
 
                           <p
@@ -131,7 +85,7 @@ export default class Cart extends Component {
                             }}
                           >
                             {g.prices?.map((j) => {
-                              const mo = j.amount * g.count;
+                              const mo = j.amount;
                               return (
                                 <div>
                                   <p>
@@ -151,10 +105,14 @@ export default class Cart extends Component {
                                           }}
                                         >
                                           {j.currency === `${value.curr}`}
-                                          {getSymbolFromCurrency(j.currency)}
+                                          {new Intl.NumberFormat(
+                                            "en-au" | "ru-md",
+                                            {
+                                              style: "currency",
+                                              currency: `${value.curr}`,
+                                            }
+                                          ).format(`${mo.toFixed(2)}`)}
                                         </p>
-
-                                        {mo.toFixed(2)}
                                       </p>
                                     ) : (
                                       ""
@@ -184,10 +142,11 @@ export default class Cart extends Component {
                               justifyContent: "space-between",
                             }}
                           >
+                      
                             <img
                               src={Plus}
                               alt=""
-                              onClick={() => value.inc(g)}
+                              onClick={() => value.inc(index)}
                             />
                             <p style={{ fontSize: "20px" }}>{g.count}</p>
                             <img
@@ -195,21 +154,57 @@ export default class Cart extends Component {
                               alt=""
                               onClick={
                                 g.count <= 1
-                                  ? () => value.rem(g)
-                                  : () => value.dec(g)
+                                  ? () => value.rem(index)
+                               : () => value.dec(index)
                               }
                             />
                           </div>
-                          <img
-                            src={g.gallery[0]}
-                            alt=""
-                            style={{
-                              width: "140px",
-                              height: "200px",
-                              objectFit: "contain",
-                              marginBottom: "15px",
-                            }}
-                          />
+                          <div style={{ position: "relative" }}>
+                            <img
+                              src={Left}
+                              alt=""
+                              style={{
+                                position: "absolute",
+                                top: "43%",
+                                left: "0",
+                              }}
+                              onClick={() => value.de(index)}
+                            />
+                            {g.gallery[`${g.co}`] ? (
+                              <img
+                                src={g.gallery[`${g.co}`]}
+                                alt=""
+                                style={{
+                                  width: "140px",
+                                  height: "200px",
+                                  objectFit: "contain",
+                                  marginBottom: "15px",
+                                }}
+                              />
+                            ) : (
+                              <img
+                                src={g.gallery[0]}
+                                alt=""
+                                style={{
+                                  width: "140px",
+                                  height: "200px",
+                                  objectFit: "contain",
+                                  marginBottom: "15px",
+                                }}
+                              />
+                            )}
+
+                            <img
+                              src={Right_icon}
+                              alt=""
+                              style={{
+                                position: "absolute",
+                                top: "43%",
+                                left: "80%",
+                              }}
+                              onClick={() => value.in(index)}
+                            />
+                          </div>
                         </div>
                       </div>
                     );
@@ -244,14 +239,13 @@ export default class Cart extends Component {
                                       }}
                                     >
                                       {y.currency === `${value.curr}`}
-                                      {getSymbolFromCurrency(y.currency)}
-                                      <p>
-                                        {value.cart.length === 0 ? (
-                                          ""
-                                        ) : (
-                                          <p>{money.toFixed(2)}</p>
-                                        )}
-                                      </p>
+                                      {new Intl.NumberFormat(
+                                        "en-au" | "ru-md",
+                                        {
+                                          style: "currency",
+                                          currency: `${value.curr}`,
+                                        }
+                                      ).format(`${money.toFixed(2)}`)}
                                     </p>
                                   ) : (
                                     ""
