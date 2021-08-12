@@ -61,13 +61,11 @@ class ProductProvdier extends Component {
   }
 
   componentDidMount() {
-    // window.addEventListener("popstate", () => {
-    //   this.setState({
-    //     attribut: [],
-
-    //   });
-    //   // localStorage.removeItem("cartItems");
-    // });
+    window.addEventListener("popstate", () => {
+      this.setState({
+        attribut: [],
+      });
+    });
 
     this.setState({
       cartItems: JSON.parse(localStorage.getItem("cartItems")),
