@@ -23,41 +23,34 @@ export default class Products extends Component {
           <ProductConsumer>
             {(value) => (
               <Pr>
-                <Productt
-                  onClick={() => value.ProductDetail(id)}
-                  style={{ opacity: inStock === false ? ".5" : "" }}
-                >
-                  <Link
-                    to={"products/" + id}
-                    style={{ textDecoration: "none" }}
+                <Link to={"products/" + id} style={{ textDecoration: "none" }}>
+                  <Productt
+                    onClick={() => value.ProductDetail(id)}
+                    style={{ opacity: inStock === false ? ".5" : "" }}
                   >
                     <ProductImg img src={gallery[0]} alt="" />
-                  </Link>
-                  <CartIc
-                    img
-                    src={Cart_icon}
-                    alt=""
-                    onClick={() => value.cartt(value.cartItems)}
-                  />
-                  <ProductName key={name}>{name}</ProductName>
-                  <ProductPrice>
-                    {prices.map((j) => (
-                      <div key={j.currency}>
-                        {j.currency === `${value.curr}` ? (
-                          <div key={j.currency}>
-                            {j.currency === `${value.curr}`}
-                            {new Intl.NumberFormat("en-au" | "ru-md", {
-                              style: "currency",
-                              currency: `${value.curr}`,
-                            }).format(`${j.amount}`)}
-                          </div>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    ))}
-                  </ProductPrice>
-                </Productt>
+
+                    <CartIc img src={Cart_icon} alt="" />
+                    <ProductName key={name}>{name}</ProductName>
+                    <ProductPrice>
+                      {prices.map((j) => (
+                        <div key={j.currency}>
+                          {j.currency === `${value.curr}` ? (
+                            <div key={j.currency}>
+                              {j.currency === `${value.curr}`}
+                              {new Intl.NumberFormat("en-au" | "ru-md", {
+                                style: "currency",
+                                currency: `${value.curr}`,
+                              }).format(`${j.amount}`)}
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      ))}
+                    </ProductPrice>
+                  </Productt>
+                </Link>
               </Pr>
             )}
           </ProductConsumer>

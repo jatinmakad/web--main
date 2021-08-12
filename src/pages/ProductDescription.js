@@ -18,27 +18,6 @@ export default class ProductDIs extends Component {
     }),
   ];
 
-  // componentDidUpdate = () => {
-  //   if (leave) {
-  //     window.onbeforeunload = () => {
-  //       this.setState({
-
-  //       })
-  //     }
-  //   } else {
-  //     window.onbeforeunload = undefined
-  //   }
-  // }
-
-  // componentWillMount() {
-  //   this.props.history.listen(() => {
-  //     // Detecting, user has changed URL
-  //     this.setState({
-  //       nu: [],
-  //     });
-  //   });
-  // }
-
   render() {
     return (
       <ProductConsumer>

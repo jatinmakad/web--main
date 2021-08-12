@@ -1,28 +1,23 @@
 import React, { Component } from "react";
 import { ProductConsumer } from "../Context";
-
+import styled from "styled-components";
 export default class Title extends Component {
   render() {
     return (
       <ProductConsumer>
         {(value) => {
-          return (
-            <p
-              style={{
-                fontSize: "42px",
-                fontWeight: "500",
-                lineHeight: "67,2px",
-                textTransform: "capitalize",
-                letterSpacing: "5px",
-                marginTop: "20px",
-                marginLeft: "60px",
-              }}
-            >
-              {value.cateogryP}
-            </p>
-          );
+          return <Categoryes>{value.cateogryP}</Categoryes>;
         }}
       </ProductConsumer>
     );
   }
 }
+const Categoryes = styled.div`
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 67, 2px;
+  text-transform: capitalize;
+  letter-spacing: 5px;
+  margin-top: 20px;
+  margin-left: 60px;
+`;
