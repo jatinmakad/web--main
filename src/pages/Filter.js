@@ -45,6 +45,7 @@ export default class Filter extends Component {
 const Dropdown = styled.div`
   width: 100px;
   position: relative;
+  z-index: 1000;
 `;
 const DropdownBtn = styled.div`
   padding: 7px 14px;
@@ -77,4 +78,5 @@ const DropdownContent = styled.div`
   font-weight: 600;
   color: #333;
   width: 85%;
+  z-index: 1000;
 `;

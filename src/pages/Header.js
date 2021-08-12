@@ -115,7 +115,7 @@ export default class Header extends Component {
                                       backgroundColor: q.att_value,
                                       color: q.att_value,
                                       border: "1px solid black",
-                                      padding: "2px",
+                                      padding: "4px",
                                     }}
                                     key={q.att_value}
                                   >
@@ -189,7 +189,7 @@ export default class Header extends Component {
                       </div>
                       <Prrr>
                         {value.cart?.map((h) => (
-                          <div key={h.name}>
+                          <div key={h.id}>
                             {h.prices?.map((y) => (
                               <div key={y.currency}>
                                 {y.currency === `${value.curr}` ? (
