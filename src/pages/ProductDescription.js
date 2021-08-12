@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { ProductConsumer } from "../Context";
 import styled from "styled-components";
 
-
 export default class ProductDIs extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +17,7 @@ export default class ProductDIs extends Component {
       image: id,
     }),
   ];
- 
+
   // componentDidUpdate = () => {
   //   if (leave) {
   //     window.onbeforeunload = () => {
@@ -46,10 +45,9 @@ export default class ProductDIs extends Component {
         {(value) => {
           let regex = /(<([^>]+)>)/gi;
           let result = value.cartItems.description?.replace(regex, "");
-         
+
           return (
             <ProductDisc>
-            
               <ProductLeft>
                 <ProductLeftimgs>
                   {value.cartItems.gallery && value.cartItems.gallery[1] ? (
@@ -164,7 +162,6 @@ export default class ProductDIs extends Component {
                                 value.cartItems.id,
                                 item.id,
                                 h.displayValue,
-
                                 item.type
                               )
                             }
@@ -207,7 +204,7 @@ export default class ProductDIs extends Component {
                   onClick={() => value.cartt(value.cartItems)}
                   style={{
                     pointerEvents: !value.attribut.length ? "none" : "",
-                    cursor: !value.attribut.length ? "not-allowed" : "",
+                    cursor: !value.attribut.length ? "not-allowed" : "pointer",
                   }}
                 >
                   Add to Cart

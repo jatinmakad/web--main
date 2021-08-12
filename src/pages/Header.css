@@ -50,7 +50,6 @@
   z-index: 100;
 }
 .outofstock {
-  
   pointer-events: none !important;
   cursor: not-allowed;
 }

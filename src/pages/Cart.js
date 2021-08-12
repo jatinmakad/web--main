@@ -6,83 +6,6 @@ import Right_icon from "../Images/chevron-right.svg";
 import Left from "../Images/left.svg";
 import styled from "styled-components";
 
-const CartMain = styled.div`
-  width: 1350px;
-  margin: 0 auto;
-  height: 100%;
-`;
-const CartHeading = styled.h1`
-  padding: 40px 0;
-  width: 90%;
-  font-size: 40px;
-  font-weight: 700;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  border-bottom: 1px solid black;
-`;
-const CartHead = styled.div`
-  display: flex;
-  width: 90%;
-  height: 180px;
-  padding: 30px 0;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  border-bottom: 1px solid black;
-`;
-const CartLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const CartName = styled.p`
-  font-size: 30px;
-  font-weight: 600;
-  line-height: 1px;
-  margin-bottom: 25px;
-`;
-const CartAttributes = styled.div`
-  margin-bottom: 30px;
-`;
-const CartPriceSection = styled.div`
-  font-size: 24px;
-  font-wight: 600;
-  line-height: 0.1px;
-`;
-const CartPrice = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 24px;
-  padding-right: 6px;
-  font-weight: 600;
-`;
-const CartRight = styled.div`
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: space-between;
-`;
-const CartCount = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-right: 20px;
-  height: 100%;
-  justify-content: space-between;
-`;
-const CartImage = styled.div`
-  position: relative;
-`;
-const CartTotal = styled.div`
-  display: flex;
-  width: 90%;
-  justify-content: space-between;
-  font-weight: 300;
-  font-size: 30px;
-  line-height: 0.1px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-top: 50px;
-  margin-bottom: 80px;
-`;
 export default class Cart extends Component {
   render() {
     return (
@@ -114,7 +37,7 @@ export default class Cart extends Component {
                                 background: q.att_value,
                                 color: q.att_value,
                                 border: "1px solid black",
-                                padding: "4px",
+                                padding: "5px",
                                 marginBottom: "3px",
                               }}
                               key={q.att_value}
@@ -213,7 +136,6 @@ export default class Cart extends Component {
                 ))}
                 <CartTotal>
                   <div>
-                   
                     {value.cart.length === 0 ? (
                       ""
                     ) : (
@@ -257,3 +179,81 @@ export default class Cart extends Component {
     );
   }
 }
+
+const CartMain = styled.div`
+  width: 1350px;
+  margin: 0 auto;
+  height: 100%;
+`;
+const CartHeading = styled.h1`
+  padding: 40px 0;
+  width: 90%;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  border-bottom: 1px solid black;
+`;
+const CartHead = styled.div`
+  display: flex;
+  width: 90%;
+  height: 180px;
+  padding: 30px 0;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  border-bottom: 1px solid black;
+`;
+const CartLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const CartName = styled.p`
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1px;
+  margin-bottom: 25px;
+`;
+const CartAttributes = styled.div`
+  margin-bottom: 30px;
+`;
+const CartPriceSection = styled.div`
+  font-size: 24px;
+  font-wight: 600;
+  line-height: 0.1px;
+`;
+const CartPrice = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  padding-right: 6px;
+  font-weight: 600;
+`;
+const CartRight = styled.div`
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+`;
+const CartCount = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+  height: 100%;
+  justify-content: space-between;
+`;
+const CartImage = styled.div`
+  position: relative;
+`;
+const CartTotal = styled.div`
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 0.1px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 50px;
+  margin-bottom: 80px;
+`;

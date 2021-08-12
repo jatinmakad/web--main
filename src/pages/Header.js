@@ -74,7 +74,7 @@ export default class Header extends Component {
                       : () => value.open()
                   }
                 >
-                  <img src={Cart_icon} alt="" />
+                  <img src={Cart_icon} alt="" style={{cursor:" pointer"}} />
                   {value.cart.length === 0 ? (
                     ""
                   ) : (
@@ -103,8 +103,11 @@ export default class Header extends Component {
                             </OverlayCartName>
                             <div>
                               {g.attribut.map((q) => (
-                                <OverlayAtt key={q.att_id2}>
-                                  <div style={{ marginBottom:"3px" }} key={q.att_id}>
+                                <OverlayAtt key={q.att_value}>
+                                  <div
+                                    style={{ marginBottom: "3px" }}
+                                    key={q.att_id}
+                                  >
                                     {q.att_id} :
                                   </div>
                                   <button
@@ -125,7 +128,7 @@ export default class Header extends Component {
                               {g.prices?.map((j) => (
                                 <div key={j.currency}>
                                   {j.currency === `${value.curr}` ? (
-                                    <div key={j.currency}>
+                                    <div key={j.amount}>
                                       {j.currency === `${value.curr}`}
                                       {new Intl.NumberFormat(
                                         "en-au" | "ru-md",
@@ -169,7 +172,9 @@ export default class Header extends Component {
                                 }
                               />
                             </OverlayCount>
-                            <OverlayPrImage src={g?.gallery[0]}></OverlayPrImage>
+                            <OverlayPrImage
+                              src={g?.gallery[0]}
+                            ></OverlayPrImage>
                           </OverlayCountButton>
                         </OverlayCart>
                       ))}
