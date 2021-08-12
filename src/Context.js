@@ -51,21 +51,22 @@ class ProductProvdier extends Component {
       attribut: [],
     };
   }
-  componentDidUpdate() {
+  // componentDidUpdate() {
+
+  // }
+
+  componentDidMount() {
     request("http://localhost:4000/", DATA_USER).then((data) =>
       this.setState({
         products: data.category.products,
         currencies: data.currencies,
       })
     );
-  }
-
-  componentDidMount() {
-    window.addEventListener("popstate", () => {
-      this.setState({
-        attribut: [],
-      });
-    });
+    // window.addEventListener("popstate", () => {
+    //   this.setState({
+    //     attribut: [],
+    //   });
+    // });
 
     this.setState({
       cartItems: JSON.parse(localStorage.getItem("cartItems")),
@@ -83,7 +84,7 @@ class ProductProvdier extends Component {
   ProductDetail = (id) => {
     const cartItem = this.getItem(id);
     this.setState(() => {
-      return { cartItems: cartItem };
+      return { cartItems: cartItem, aaa: cartItem };
     });
   };
   // Add To cart
@@ -130,7 +131,7 @@ class ProductProvdier extends Component {
     const cart = this.state.cart.slice();
     this.setState({
       cart: cart.filter((x, index) =>
-        index === products ? { x, count: x.count-- } : x
+        index === products ? { x, count: x.count--} : x
       ),
     });
     this.addTotal(cart);
@@ -281,6 +282,7 @@ class ProductProvdier extends Component {
       <ProductContext.Provider
         value={{
           ...this.state,
+          car: this.addtoca,
           ProductDetail: this.ProductDetail,
           cartt: this.addToCart,
           rem: this.remove,
@@ -308,49 +310,3 @@ class ProductProvdier extends Component {
 
 const ProductConsumer = ProductContext.Consumer;
 export { ProductProvdier, ProductConsumer };
-
-// if(item.attribut.length !== this.state.attribut.length){
-//   return false
-// } return console.log(item.attribut.every((val) => this.state.attribut.includes(val)))
-// if (item.attribut.length !== this.state.attribut.length) return false;
-// for (var i = 0, len = item.attribut.length; i < len; i++) {
-//   if (
-//     console.log(
-//       item.attribut[i]?.att_value === this.state.attribut.att_value &&
-//         item.attribut[i]?.att_id === this.state.attribut.att_id &&
-//         item.attribut[i]?.att_id2 === this.state.attribut.att_id2
-//     )
-//   ) {
-//   }
-// }
-
-// if (
-//   item.attribut.length === this.state.attribut.length &&
-//   item.attribut.every((e, i) =>
-//     console.log(
-//       Object.keys(e).length ===
-//         Object.keys(this.state.attribut[i]).length &&
-//         Object.keys(e).every((k) => e[k] === this.state.attribut[i][k])
-//     )
-//   )
-// )
-
-// {
-//   alreadyInCart = true;
-//   item.count++;
-//   this.setState({ attribut: [] });
-// }
-// for (let i = 0; i < item.attribut.length; i++) {
-//   if (
-//     console.log(
-//       item.attribut[i]?.pr_id === this.state.attribut[i]?.pr_id &&
-//         item.attribut[i]?.att_id === this.state.attribut[i]?.att_id &&
-//         item.attribut[i]?.att_value === this.state.attribut[i]?.att_value
-//     )
-//   ) {
-//     alreadyInCart = true;
-//     break;
-//   }
-// }
-//  console.log(item.count++)
-//     console.log("run this");

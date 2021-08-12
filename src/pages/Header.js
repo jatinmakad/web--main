@@ -74,7 +74,7 @@ export default class Header extends Component {
                       : () => value.open()
                   }
                 >
-                  <img src={Cart_icon} alt="" style={{cursor:" pointer"}} />
+                  <img src={Cart_icon} alt="" style={{ cursor: " pointer" }} />
                   {value.cart.length === 0 ? (
                     ""
                   ) : (
@@ -166,7 +166,7 @@ export default class Header extends Component {
                                   height: "25px",
                                 }}
                                 onClick={
-                                  g.count <= 1
+                                  g.count <= 0
                                     ? () => value.rem(index)
                                     : () => value.dec(index)
                                 }
