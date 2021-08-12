@@ -3,17 +3,16 @@ import { ProductConsumer } from "../Context";
 import Arrow from "../Images/arrow.svg";
 import styled from "styled-components";
 
-
 export default class Filter extends Component {
   render() {
     return (
       <ProductConsumer>
         {(value) => {
           return (
-          
             <Dropdown>
               <DropdownBtn onClick={value.openCurr}>
-                {value.curr}{" "}
+                {value.curr}
+                <span style={{paddingLeft:"7px"}}></span>
                 {value.filterCurr ? (
                   <img src={Arrow} alt="" />
                 ) : (
@@ -29,19 +28,14 @@ export default class Filter extends Component {
 
               {value.filterCurr && (
                 <DropdownContent>
-                  {value.currencies.map((g) => {
-                    return (
-                      <DropdownItem onClick={() => value.fil(g)}>
-                        <p onClick={value.closeCurr}>
-                           {g}
-                        </p>
-                      </DropdownItem>
-                    );
-                  })}
+                  {value.currencies.map((g) => (
+                    <DropdownItem onClick={() => value.filterCurrency(g)} key={g}>
+                      <p onClick={value.closeCurr}>{g}</p>
+                    </DropdownItem>
+                  ))}
                 </DropdownContent>
               )}
             </Dropdown>
-        
           );
         }}
       </ProductConsumer>

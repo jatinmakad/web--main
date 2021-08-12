@@ -29,17 +29,15 @@ export default class Overlay extends Component {
             zIndex: "1000",
             width: "325px",
             maxHeight: "540px",
-           overflowY:"auto",
+            overflowY: "auto",
           }}
         >
           <ProductConsumer>
-            {(value) => {
-              return (
-                <OutsideClick clo={value.close}>
-                  <div>{children}</div>
-                </OutsideClick>
-              );
-            }}
+            {(value) => (
+              <OutsideClick clo={value.close}>
+                <div>{children}</div>
+              </OutsideClick>
+            )}
           </ProductConsumer>
         </Fade>
       </div>
@@ -48,8 +46,8 @@ export default class Overlay extends Component {
 }
 
 const Fade = styled.div`
-&::-webkit-scrollbar {
-  width: 1px;
-  border: 1px solid black;
-}
+  &::-webkit-scrollbar {
+    width: 1px;
+    border: 1px solid black;
+  }
 `;

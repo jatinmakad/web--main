@@ -4,266 +4,256 @@ import Plus from "../Images/plus-square.svg";
 import Minus from "../Images/minus-square.svg";
 import Right_icon from "../Images/chevron-right.svg";
 import Left from "../Images/left.svg";
+import styled from "styled-components";
 
+const CartMain = styled.div`
+  width: 1350px;
+  margin: 0 auto;
+  height: 100%;
+`;
+const CartHeading = styled.h1`
+  padding: 40px 0;
+  width: 90%;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  border-bottom: 1px solid black;
+`;
+const CartHead = styled.div`
+  display: flex;
+  width: 90%;
+  height: 180px;
+  padding: 30px 0;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  border-bottom: 1px solid black;
+`;
+const CartLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const CartName = styled.p`
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1px;
+  margin-bottom: 25px;
+`;
+const CartAttributes = styled.div`
+  margin-bottom: 30px;
+`;
+const CartPriceSection = styled.div`
+  font-size: 24px;
+  font-wight: 600;
+  line-height: 0.1px;
+`;
+const CartPrice = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  padding-right: 6px;
+  font-weight: 600;
+`;
+const CartRight = styled.div`
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+`;
+const CartCount = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+  height: 100%;
+  justify-content: space-between;
+`;
+const CartImage = styled.div`
+  position: relative;
+`;
+const CartTotal = styled.div`
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 0.1px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 50px;
+  margin-bottom: 80px;
+`;
 export default class Cart extends Component {
   render() {
     return (
-      <div
-        style={{
-          width: "1400px",
-          margin: "0 auto",
-          height: "110vh",
-        }}
-      >
-        <h1
-          style={{
-            padding: "40px 0",
-            width: "90%",
-            fontSize: "40px",
-            fontWeight: "700",
-            letterSpacing: "5px",
-            textTransform: "uppercase",
-            borderBottom: "1px solid black",
-          }}
-        >
-          Cart
-        </h1>
-
+      <CartMain>
+        <CartHeading>Cart</CartHeading>
         <ProductConsumer>
           {(value) => {
-            const money = value.tot;
             return (
               <div>
-                <p>
-                  {value.cart.map((g,index) => {
-                    // console.log(index, "this")
-                    return (
-                      <div
-                        style={{
-                          display: "flex",
-                          width: "90%",
-                          height: "180px",
-                          padding: "30px 0",
-                          justifyContent: "space-between",
-                          marginBottom: "20px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-around",
-                          }}
-                        >
-                          <p
-                            style={{
-                              fontSize: "30px",
-                              fontWeight: "600",
-                              lineHeight: "1px",
-                            }}
-                          >
-                            {g.name}
-                          </p>
-
-                          <div>
-                            {g.attribut.map((q) => {
-                              return (
-                                <div>
-                                  <p>{q.att_id}</p>
-                                  <button>{q.att_value}</button>
-                                </div>
-                              );
-                            })}
-                          </div>
-
-                          <p
-                            style={{
-                              fontSize: "25px",
-                              fontWeight: "500",
-                              lineHeight: "1px",
-                            }}
-                          >
-                            {g.prices?.map((j) => {
-                              const mo = j.amount;
-                              return (
-                                <div>
-                                  <p>
-                                    {j.currency === `${value.curr}` ? (
-                                      <p
-                                        style={{
-                                          display: "flex",
-                                          alignItems: "center",
-                                          fontWeight: "600",
-                                          fontSize: "24px",
-                                        }}
-                                      >
-                                        <p
-                                          style={{
-                                            paddingRight: "6px",
-                                            margin: "1px",
-                                          }}
-                                        >
-                                          {j.currency === `${value.curr}`}
-                                          {new Intl.NumberFormat(
-                                            "en-au" | "ru-md",
-                                            {
-                                              style: "currency",
-                                              currency: `${value.curr}`,
-                                            }
-                                          ).format(`${mo.toFixed(2)}`)}
-                                        </p>
-                                      </p>
-                                    ) : (
-                                      ""
-                                    )}
-                                  </p>
-                                </div>
-                              );
-                            })}
-                          </p>
-                        </div>
-
-                        <div
-                          style={{
-                            display: "flex",
-                            height: "100%",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              alignItems: "center",
-                              marginRight: "20px",
-                              height: "100%",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                      
-                            <img
-                              src={Plus}
-                              alt=""
-                              onClick={() => value.inc(index)}
-                            />
-                            <p style={{ fontSize: "20px" }}>{g.count}</p>
-                            <img
-                              src={Minus}
-                              alt=""
-                              onClick={
-                                g.count <= 1
-                                  ? () => value.rem(index)
-                               : () => value.dec(index)
-                              }
-                            />
-                          </div>
-                          <div style={{ position: "relative" }}>
-                            <img
-                              src={Left}
-                              alt=""
+                {value.cart.map((g, index) => (
+                  <CartHead key={g.id}>
+                    <CartLeft>
+                      <CartName key={g.name}>{g.name}</CartName>
+                      <CartAttributes key={g.attribut}>
+                        {g.attribut.map((q) => (
+                          <div key={q.att_id}>
+                            <p
                               style={{
-                                position: "absolute",
-                                top: "43%",
-                                left: "0",
+                                marginBottom: "2px",
+                                paddingBottom: "4px",
+                                fontWeight: "600",
                               }}
-                              onClick={() => value.de(index)}
-                            />
-                            {g.gallery[`${g.co}`] ? (
-                              <img
-                                src={g.gallery[`${g.co}`]}
-                                alt=""
-                                style={{
-                                  width: "140px",
-                                  height: "200px",
-                                  objectFit: "contain",
-                                  marginBottom: "15px",
-                                }}
-                              />
+                              key={q.att_id}
+                            >
+                              {q.att_id} :
+                            </p>
+                            <button
+                              style={{
+                                background: q.att_value,
+                                color: q.att_value,
+                                border: "1px solid black",
+                                padding: "4px",
+                                marginBottom: "3px",
+                              }}
+                              key={q.att_value}
+                            >
+                              {q.att_value}
+                            </button>
+                          </div>
+                        ))}
+                      </CartAttributes>
+
+                      <CartPriceSection>
+                        {g.prices?.map((j) => (
+                          <div key={j.currency}>
+                            {j.currency === `${value.curr}` ? (
+                              <CartPrice key={j.currency}>
+                                {j.currency === `${value.curr}`}
+                                {new Intl.NumberFormat("en-au" | "ru-md", {
+                                  style: "currency",
+                                  currency: `${value.curr}`,
+                                }).format(`${j.amount.toFixed(2)}`)}
+                              </CartPrice>
                             ) : (
-                              <img
-                                src={g.gallery[0]}
-                                alt=""
-                                style={{
-                                  width: "140px",
-                                  height: "200px",
-                                  objectFit: "contain",
-                                  marginBottom: "15px",
-                                }}
-                              />
+                              ""
                             )}
-
-                            <img
-                              src={Right_icon}
-                              alt=""
-                              style={{
-                                position: "absolute",
-                                top: "43%",
-                                left: "80%",
-                              }}
-                              onClick={() => value.in(index)}
-                            />
                           </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                  <div
-                    style={{
-                      display: "flex",
-                      width: "90%",
-                      justifyContent: "space-between",
-                      fontWeight: "600",
-                      fontSize: "30px",
-                      lineHeight: "1px",
-                      letterSpacing: "3px",
-                      textTransform: "uppercase",
-                      marginTop: "50px",
-                    }}
-                  >
-                    <p> {value.cart.length === 0 ? "" : <p>Total</p>}</p>
+                        ))}
+                      </CartPriceSection>
+                    </CartLeft>
 
-                    <p>
-                      {value.cart.map((h) => {
-                        return (
-                          <div>
-                            {h.prices.map((y) => {
-                              return (
-                                <div>
-                                  {y.currency === `${value.curr}` ? (
-                                    <p
-                                      style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                      }}
-                                    >
-                                      {y.currency === `${value.curr}`}
-                                      {new Intl.NumberFormat(
-                                        "en-au" | "ru-md",
-                                        {
-                                          style: "currency",
-                                          currency: `${value.curr}`,
-                                        }
-                                      ).format(`${money.toFixed(2)}`)}
-                                    </p>
-                                  ) : (
-                                    ""
-                                  )}
-                                </div>
-                              );
-                            })}
-                          </div>
-                        );
-                      })}
-                    </p>
+                    <CartRight>
+                      <CartCount>
+                        <img
+                          src={Plus}
+                          alt=""
+                          onClick={() => value.inc(index)}
+                        />
+                        <p style={{ fontSize: "20px" }}>{g.count}</p>
+                        <img
+                          src={Minus}
+                          alt=""
+                          onClick={
+                            g.count <= 1
+                              ? () => value.rem(index)
+                              : () => value.dec(index)
+                          }
+                        />
+                      </CartCount>
+                      <CartImage>
+                        <img
+                          src={Left}
+                          alt=""
+                          style={{
+                            position: "absolute",
+                            top: "43%",
+                            left: "0",
+                          }}
+                          onClick={() => value.ProductImageDec(index)}
+                        />
+                        {g.gallery[`${g.co}`] ? (
+                          <img
+                            src={g.gallery[`${g.co}`]}
+                            alt=""
+                            style={{
+                              width: "140px",
+                              height: "200px",
+                              objectFit: "contain",
+                              marginBottom: "15px",
+                            }}
+                          />
+                        ) : (
+                          <img
+                            src={g.gallery[0]}
+                            alt=""
+                            style={{
+                              width: "140px",
+                              height: "200px",
+                              objectFit: "contain",
+                              marginBottom: "15px",
+                            }}
+                          />
+                        )}
+
+                        <img
+                          src={Right_icon}
+                          alt=""
+                          style={{
+                            position: "absolute",
+                            top: "43%",
+                            left: "80%",
+                          }}
+                          onClick={() => value.ProductImageInc(index)}
+                        />
+                      </CartImage>
+                    </CartRight>
+                  </CartHead>
+                ))}
+                <CartTotal>
+                  <div>
+                   
+                    {value.cart.length === 0 ? (
+                      ""
+                    ) : (
+                      <p style={{ fontWeight: "600" }}>Total</p>
+                    )}
                   </div>
-                </p>
+
+                  <div>
+                    {value.cart.map((h) => (
+                      <div key={h.prices}>
+                        {h.prices.map((y) => (
+                          <div key={y.currency}>
+                            {y.currency === `${value.curr}` ? (
+                              <p
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                                key={y.currency}
+                              >
+                                {y.currency === `${value.curr}`}
+                                {new Intl.NumberFormat("en-au" | "ru-md", {
+                                  style: "currency",
+                                  currency: `${value.curr}`,
+                                }).format(`${value.tot.toFixed(2)}`)}
+                              </p>
+                            ) : (
+                              ""
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </CartTotal>
               </div>
             );
           }}
         </ProductConsumer>
-      </div>
+      </CartMain>
     );
   }
 }

@@ -6,7 +6,7 @@ export default class Model extends Component {
     return (
       <ProductConsumer>
         {(value) => {
-          return <button onClick={() => value.close()}>close</button>;
+          return <button onClick={() => value.close()} key={value}>close</button>;
         }}
       </ProductConsumer>
     );

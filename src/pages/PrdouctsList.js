@@ -3,7 +3,6 @@ import { ProductConsumer } from "../Context";
 import Products from "./Products";
 import styled from "styled-components";
 
-
 export default class PrdouctsList extends Component {
   render() {
     return (
@@ -21,13 +20,13 @@ export default class PrdouctsList extends Component {
             )
           }
         </ProductConsumer>
-        
       </ProductsAll>
     );
   }
 }
 const ProductsAll = styled.div`
   display: flex;
-  width: 100%;
+  width: 94%;
   flex-wrap: wrap;
+  margin:0 auto;
 `;

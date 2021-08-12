@@ -5,10 +5,10 @@
 .active_class::after {
   content: "";
   position: absolute;
-  width: 90px;
+  width: 94px;
   height: 4px;
   top: 100%;
-  right: 88.5%;
+  right: 88%;
   background-color: #5ece7b;
 }
 .active_class_to {
@@ -21,7 +21,7 @@
   width: 78px;
   height: 4px;
   top: 100%;
-  right: 81%;
+  right: 80.5%;
   background-color: #5ece7b;
 }
 
@@ -35,21 +35,22 @@
   width: 60px;
   height: 4px;
   top: 100%;
-  right: 97%;
+  right: 96.5%;
   background-color: #5ece7b;
 }
 .jat {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.1);
-  top: 0;
-  left: 0;
+  background-color: rgba(0, 0, 0, 0.030);
+  top: 2%;
+  left: 5%;
   right: 0;
   bottom: 0;
-  width: 100%;
-  height: 100%;
+  width: 86%;
+ height: 68%;
   z-index: 100;
 }
 .outofstock {
+  
   pointer-events: none !important;
   cursor: not-allowed;
 }

@@ -14,354 +14,218 @@ export default class Header extends Component {
   render() {
     return (
       <ProductConsumer>
-        {(value) => {
-          const money = value.tot;
-          return (
-            <HeaderMain>
-              <Head>
-                <HeaderFirst>
-                  <NavLink
-                    to="/"
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    <p
-                      style={{
-                        fontSize: "19px",
-                        fontWeight: "600",
-                        lineHeight: "20px",
-                        cursor: "pointer",
-                        letterSpacing: "1.5px",
-                      }}
-                      onClick={() => value.all()}
-                      className={
-                        value.cateogryP === "all" ? "active_cla" : "all_ct"
-                      }
-                    >
-                      All
-                    </p>
-                  </NavLink>
-                  <NavLink
-                    to="/"
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    <p
-                      style={{
-                        fontSize: "19px",
-                        fontWeight: "600",
-                        lineHeight: "20px",
-                        cursor: "pointer",
-                        letterSpacing: "1px",
-                      }}
-                      value={value.cateogryP}
-                      onClick={() => value.clothes()}
-                      className={
-                        value.cateogryP === "clothes"
-                          ? "active_class"
-                          : "clothes_ct"
-                      }
-                    >
-                      Clothes
-                    </p>
-                  </NavLink>
-                  <NavLink
-                    to="/"
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    <p
-                      style={{
-                        fontSize: "19px",
-                        fontWeight: "600",
-                        lineHeight: "20px",
-                        cursor: "pointer",
-                        letterSpacing: "1.5px",
-                      }}
-                      value={value.cateogryP}
-                      onClick={() => value.tech()}
-                      className={
-                        value.cateogryP === "tech"
-                          ? "active_class_to"
-                          : "tech_ct"
-                      }
-                    >
-                      Tech
-                    </p>
-                  </NavLink>
-                </HeaderFirst>
-                <NavLink to="/">
-                  <img src={Home} alt="" />
-                </NavLink>
-                <HeaderLast>
-                  <Filter />
-                  <HeadLasticon
-                    onClick={
-                      value.cart.length === 0
-                        ? () => value.close()
-                        : () => value.open()
+        {(value) => (
+          <HeaderMain>
+            <Head>
+              <HeaderFirst>
+                <NavLink
+                  to="/"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <CategoryAll
+                    onClick={() => value.AllProductCategory()}
+                    className={
+                      value.cateogryP === "all" ? "active_cla" : "all_ct"
                     }
                   >
-                    <img src={Cart_icon} alt="" />
-                    {value.cart.length === 0 ? (
-                      ""
-                    ) : (
-                      <p
+                    All
+                  </CategoryAll>
+                </NavLink>
+                <NavLink
+                  to="/"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <CategoryClothes
+                    value={value.cateogryP}
+                    onClick={() => value.clothes()}
+                    className={
+                      value.cateogryP === "clothes"
+                        ? "active_class"
+                        : "clothes_ct"
+                    }
+                  >
+                    Clothes
+                  </CategoryClothes>
+                </NavLink>
+                <NavLink
+                  to="/"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <CategoryTech
+                    value={value.cateogryP}
+                    onClick={() => value.tech()}
+                    className={
+                      value.cateogryP === "tech" ? "active_class_to" : "tech_ct"
+                    }
+                  >
+                    Tech
+                  </CategoryTech>
+                </NavLink>
+              </HeaderFirst>
+              <NavLink to="/">
+                <img src={Home} alt="" />
+              </NavLink>
+              <HeaderLast>
+                <Filter />
+                <HeadLasticon
+                  onClick={
+                    value.cart.length === 0
+                      ? () => value.close()
+                      : () => value.open()
+                  }
+                >
+                  <img src={Cart_icon} alt="" />
+                  {value.cart.length === 0 ? (
+                    ""
+                  ) : (
+                    <CartLength>{value.cart.length}</CartLength>
+                  )}
+                </HeadLasticon>
+                <Overlay open={value.modal}>
+                  <div>
+                    <MyBag>
+                      My Bag,
+                      <span
                         style={{
-                          position: "absolute",
-                          top: "-35%",
-                          left: "70%",
-                          background: "black",
-                          color: "white",
-                          borderRadius: "50%",
-                          padding: ".5px 4px",
-                          fontSize: "12px",
+                          fontWeight: "300",
                         }}
                       >
-                        {value.cart.length}
-                      </p>
-                    )}
-                  </HeadLasticon>
-                  <Overlay open={value.modal}>
-                    <div>
-                      <div>
-                        <p
-                          style={{
-                            fontWeight: "700",
-                            marginBottom: "10px",
-                          }}
-                        >
-                          My Bag,
-                          <span
-                            style={{
-                              fontWeight: "300",
-                            }}
-                          >
-                            {value.cart.length} items
-                          </span>
-                        </p>
-                      </div>
-                      <div>
-                        {value.cart?.map((g, index) => {
-                          return (
-                            <div
-                              style={{
-                                display: "flex",
-                                width: "100%",
-                                height: "160px",
-                                justifyContent: "space-between",
-                                marginBottom: "12px",
-                                borderBottom: "1px solid black",
-                              }}
-                            >
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  justifyContent: "space-around",
-                                  padding: "5px 0",
-                                }}
-                              >
-                                <p
-                                  style={{
-                                    fontSize: "16px",
-                                    fontWeight: "300",
-                                    lineHeight: "24px",
-                                  }}
-                                >
-                                  {g.name}
-                                </p>
-                                <div>
-                                  {g.attribut.map((q) => {
-                                    return (
-                                      <div>
-                                        <p>{q.att_id}</p>
-                                        <button>{q.att_value}</button>
-                                      </div>
-                                    );
-                                  })}
-                                </div>
-                                <p
-                                  style={{
-                                    fontSize: "16px",
-                                    fontWeight: "600",
-                                    lineHeight: "25px",
-                                  }}
-                                >
-                                  {g.prices?.map((j) => {
-                                    const mo = j.amount;
-                                    return (
-                                      <div>
-                                        <p>
-                                          {j.currency === `${value.curr}` ? (
-                                            <p>
-                                              {j.currency === `${value.curr}`}
-                                              {new Intl.NumberFormat(
-                                                "en-au" | "ru-md",
-                                                {
-                                                  style: "currency",
-                                                  currency: `${value.curr}`,
-                                                }
-                                              ).format(`${mo.toFixed(2)}`)}
-                                            </p>
-                                          ) : (
-                                            ""
-                                          )}
-                                        </p>
-                                      </div>
-                                    );
-                                  })}
-                                </p>
-                              </div>
+                        {value.cart.length} items
+                      </span>
+                    </MyBag>
 
-                              <div
-                                style={{
-                                  display: "flex",
-                                }}
-                              >
-                                <div
-                                  style={{
-                                    padding: "10px 0",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: "center",
-                                    justifyContent: "space-between",
-                                    marginRight: "10px",
-                                  }}
-                                >
-                                  <img
-                                    src={Plus}
-                                    alt=""
-                                    onClick={() => value.inc(index)}
+                    <div>
+                      {value.cart?.map((g, index) => (
+                        <OverlayCart>
+                          <OverlayCartFirst>
+                            <OverlayCartName key={g.name}>
+                              {g?.name}
+                            </OverlayCartName>
+                            <div>
+                              {g.attribut.map((q) => (
+                                <OverlayAtt key={q.att_id2}>
+                                  <div style={{ marginBottom:"3px" }} key={q.att_id}>
+                                    {q.att_id} :
+                                  </div>
+                                  <button
                                     style={{
-                                      width: "25px",
-                                      height: "25px",
+                                      backgroundColor: q.att_value,
+                                      color: q.att_value,
+                                      border: "1px solid black",
+                                      padding: "2px",
                                     }}
-                                  />
-                                  <p>{g.count}</p>
-                                  <img
-                                    src={Minus}
-                                    alt=""
-                                    style={{
-                                      width: "25px",
-                                      height: "25px",
-                                    }}
-                                    onClick={
-                                      g.count <= 1
-                                        ? () => value.rem(index)
-                                        : () => value.dec(index)
-                                    }
-                                  />
-                                </div>
-                                <img
-                                  src={g.gallery[0]}
-                                  alt=""
-                                  style={{
-                                    width: "105px",
-                                    height: "130px",
-                                    objectFit: "contain",
-                                    marginBottom: "15px",
-                                  }}
-                                />
-                              </div>
+                                    key={q.att_value}
+                                  >
+                                    {q.att_value}
+                                  </button>
+                                </OverlayAtt>
+                              ))}
                             </div>
-                          );
-                        })}
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          width: "100%",
-                          margin: "30px 0",
-                          justifyContent: "space-between",
-                          fontWeight: "600",
-                          fontSize: "16px",
-                          lineHeight: "1px",
-                          alignItems: "center",
-                        }}
-                      >
-                        <p>Total</p>
-                        <p>
-                          {value.cart.map((h) => {
-                            return (
-                              <div>
-                                {h.prices.map((y) => {
-                                  const le = "en-au" | "ru-md";
-                                  return (
-                                    <div>
-                                      {y.currency === `${value.curr}` ? (
-                                        <p
-                                          style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                          }}
-                                        >
-                                          {y.currency === `${value.curr}`}
-                                          {new Intl.NumberFormat(le, {
-                                            style: "currency",
-                                            currency: `${value.curr}`,
-                                          }).format(`${money.toFixed(2)}`)}
-                                        </p>
-                                      ) : (
-                                        ""
-                                      )}
+                            <OverlayCurrency>
+                              {g.prices?.map((j) => (
+                                <div key={j.currency}>
+                                  {j.currency === `${value.curr}` ? (
+                                    <div key={j.currency}>
+                                      {j.currency === `${value.curr}`}
+                                      {new Intl.NumberFormat(
+                                        "en-au" | "ru-md",
+                                        {
+                                          style: "currency",
+                                          currency: `${value.curr}`,
+                                        }
+                                      ).format(`${j.amount.toFixed(2)}`)}
                                     </div>
-                                  );
-                                })}
-                              </div>
-                            );
-                          })}
-                        </p>
-                      </div>
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                              ))}
+                            </OverlayCurrency>
+                          </OverlayCartFirst>
+
+                          <OverlayCountButton>
+                            <OverlayCount>
+                              <img
+                                src={Plus}
+                                alt=""
+                                onClick={() => value.inc(index)}
+                                style={{
+                                  width: "25px",
+                                  height: "25px",
+                                }}
+                              />
+                              <p key={g.count}>{g.count}</p>
+                              <img
+                                src={Minus}
+                                alt=""
+                                style={{
+                                  width: "25px",
+                                  height: "25px",
+                                }}
+                                onClick={
+                                  g.count <= 1
+                                    ? () => value.rem(index)
+                                    : () => value.dec(index)
+                                }
+                              />
+                            </OverlayCount>
+                            <OverlayPrImage src={g?.gallery[0]}></OverlayPrImage>
+                          </OverlayCountButton>
+                        </OverlayCart>
+                      ))}
+                    </div>
+                    <OverlayPrTotal>
                       <div
                         style={{
-                          display: "flex",
-                          width: "100%",
-                          justifyContent: "space-between",
+                          fontWeight: "600",
                         }}
                       >
-                        <NavLink to="/cart">
-                          <button
-                            style={{
-                              width: "140px",
-                              height: "43px",
-                              padding: "13px 32px",
-                              textTransform: "uppercase",
-                              backgroundColor: "transparent",
-                              border: "1.6px solid black",
-                              fontWeight: "600",
-                              lineHeight: "17px",
-                              cursor: "pointer",
-                            }}
-                            onClick={() => value.close()}
-                          >
-                            View Bag
-                          </button>
-                        </NavLink>
-                        <button
-                          style={{
-                            width: "140px",
-                            height: "43px",
-                            padding: "10px 25px",
-                            textTransform: "uppercase",
-                            backgroundColor: "#5ECE7B",
-                            border: "none",
-                            color: "#fff",
-                          }}
-                        >
-                          Check Out
-                        </button>
+                        Total
                       </div>
-                    </div>
-                  </Overlay>
-                </HeaderLast>
-              </Head>
-            </HeaderMain>
-          );
-        }}
+                      <Prrr>
+                        {value.cart?.map((h) => (
+                          <div key={h.name}>
+                            {h.prices?.map((y) => (
+                              <div key={y.currency}>
+                                {y.currency === `${value.curr}` ? (
+                                  <div>
+                                    {y.currency === `${value.curr}`}
+                                    {new Intl.NumberFormat("en-au" | "ru-md", {
+                                      style: "currency",
+                                      currency: `${value.curr}`,
+                                    }).format(`${value.tot}`)}
+                                  </div>
+                                ) : (
+                                  ""
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+                      </Prrr>
+                    </OverlayPrTotal>
+                    <OverlayBag>
+                      <NavLink to="/cart">
+                        <OverlayBagButton onClick={() => value.close()}>
+                          View Bag
+                        </OverlayBagButton>
+                      </NavLink>
+                      <OverlayBagButton2>Check Out</OverlayBagButton2>
+                    </OverlayBag>
+                  </div>
+                </Overlay>
+              </HeaderLast>
+            </Head>
+          </HeaderMain>
+        )}
       </ProductConsumer>
     );
   }
 }
+const OverlayAtt = styled.div``;
+
 const HeaderMain = styled.div`
-  max-width: 1400px;
+  max-width: 1350px;
   height: 80px;
   margin: 0 auto;
 `;
@@ -390,3 +254,120 @@ const HeaderLast = styled.div`
   justify-content: space-between;
   width: 100px;
 `;
+const CategoryAll = styled.div`
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+`;
+const CategoryClothes = styled.div`
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+`;
+const CategoryTech = styled.div`
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+`;
+const CartLength = styled.p`
+  position: absolute;
+  top: -35%;
+  left: 70%;
+  background: black;
+  color: white;
+  border-radius: 50%;
+  padding: 0.5px 4px;
+  font-size: 12px;
+`;
+const MyBag = styled.div`
+  font-weight: 700;
+  margin-bottom: 30px;
+`;
+const OverlayCart = styled.div`
+  display: flex;
+  width: 100%;
+  height: 160px;
+  justify-content: space-between;
+  margin-bottom: 30px;
+`;
+const OverlayCartFirst = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;
+const OverlayCartName = styled.p`
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+`;
+const OverlayCurrency = styled.div`
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 25px;
+`;
+const OverlayCountButton = styled.div`
+  display: flex;
+`;
+const OverlayCount = styled.div`
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 10px;
+`;
+const OverlayPrImage = styled.img`
+  width: 105px;
+  height: 130px;
+  object-fit: contain;
+  margin-bottom: 15px;
+`;
+const OverlayPrTotal = styled.div`
+  display: flex;
+  width: 100%;
+  margin: 30px 0;
+  justify-content: space-between;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 0.1px;
+  align-items: center;
+`;
+const OverlayBag = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+const OverlayBagButton = styled.button`
+  width: 140px;
+  height: 43px;
+  padding: 13px 32px;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 1.6px solid black;
+  font-weight: 600;
+  line-height: 17px;
+  cursor: pointer;
+`;
+const OverlayBagButton2 = styled.button`
+  width: 140px;
+  height: 43px;
+  padding: 10px 25px;
+  text-transform: uppercase;
+  background-color: #5ece7b;
+  border: none;
+  color: #fff;
+`;
+// const OverlayAttButton = styled.button`
+// border:1px solid black;
+// padding:2px;
+// `;
+const Prrr = styled.div``;
