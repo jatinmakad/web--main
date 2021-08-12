@@ -51,10 +51,6 @@ class ProductProvdier extends Component {
       attribut: [],
     };
   }
-  // componentDidUpdate() {
-
-  // }
-
   componentDidMount() {
     request("http://localhost:4000/", DATA_USER).then((data) =>
       this.setState({
@@ -62,12 +58,11 @@ class ProductProvdier extends Component {
         currencies: data.currencies,
       })
     );
-    // window.addEventListener("popstate", () => {
-    //   this.setState({
-    //     attribut: [],
-    //   });
-    // });
-
+    window.addEventListener("popstate", () => {
+      this.setState({
+        attribut: [],
+      });
+    });
     this.setState({
       cartItems: JSON.parse(localStorage.getItem("cartItems")),
     });
@@ -131,7 +126,7 @@ class ProductProvdier extends Component {
     const cart = this.state.cart.slice();
     this.setState({
       cart: cart.filter((x, index) =>
-        index === products ? { x, count: x.count--} : x
+        index === products ? { x, count: x.count-- } : x
       ),
     });
     this.addTotal(cart);

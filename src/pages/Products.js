@@ -32,7 +32,7 @@ export default class Products extends Component {
                     style={{ textDecoration: "none" }}
                   >
                     <ProductImg img src={gallery[0]} alt="" />
-                  </Link>
+                  
 
                   <CartIc img src={Cart_icon} alt="" />
                   <ProductName key={name}>{name}</ProductName>
@@ -53,6 +53,7 @@ export default class Products extends Component {
                       </div>
                     ))}
                   </ProductPrice>
+                  </Link>
                 </Productt>
               </Pr>
             )}
